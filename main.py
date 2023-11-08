@@ -1,10 +1,8 @@
-from ObtenerRefuerzos import ObtenerRefuerzos
+from Refuerzos import Refuerzos
 
 def run():
-    refuerzos = ObtenerRefuerzos()
-    refuerzos.calcular_frecuencia()
-    
-
+    refuerzos = Refuerzos()
+    refuerzos.transformar_datos()
 
 if __name__ == '__main__':
     run()
