@@ -27,7 +27,7 @@ class AnalisisAplicaciones():
         segunda_dosis = len(self.filtrar_segunda_dosis())
         unica_dosis = len(self.filtrar_dosis_unica())
         print(f'Exportando archivo: {nombre}')
-        with open(nombre, 'w') as file:
+        with open(f'{nombre}.txt', 'w') as file:
             file.write(f'Primera dosis: {primera_dosis}\nSegunda dosis: {segunda_dosis}\nUnica dosis: {unica_dosis}\n')
         refuerzos = AnalisisRefuerzo(self.lista_de_vacunas)
         refuerzos.obtener_refuerzos()
