@@ -1,20 +1,20 @@
 from Aplicaciones import Aplicaciones
 from AnalisisRefuerzo import AnalisisRefuerzo
 from AnalisisAplicaciones import AnalisisAplicaciones
+import time
 
 
 def run():
     try:
         vacunas = Aplicaciones()
         lista = vacunas.exportar_lista_vacunas()
-        menu = '''
+        menu = """
     ** MENÚ **
-
 1. Obtener cantidad de refuerzos aplicados por vacuna
 2. Obtener tipo y cantidad de refuerzos aplicados
-3. Obtener total de aplicaciones. (1ra dosis, 2da dosis)
-    Opción: '''
-        op = int(input(menu))
+3. Obtener total de aplicaciones.
+    Opción: """
+        op = input(menu)
         match op:
             case 1:
                 refuerzos = AnalisisRefuerzo(lista)
@@ -26,11 +26,15 @@ def run():
                 aplicaciones = AnalisisAplicaciones(lista)
                 aplicaciones.obtener_aplicaciones()
             case _:
-                raise Exception('Opción no encontrada. Intenta nuevamente...')
+                raise Exception("Opción no encontrada. Intenta nuevamente...")
         # refuerzo = refuerzos.filtrar_refuerzos()
         # print(refuerzo[0])
     except Exception as e:
         print(e)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
+    inicio = time.time()
     run()
+    final = time.time()
+    print("Tiempo de ejecución => ", final - inicio)
