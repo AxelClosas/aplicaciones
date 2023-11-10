@@ -1,0 +1,7 @@
+Primer refuerzo: 282869
+Segundo refuerzo: 114392
+Tercer refuerzo: 31071
+Cuarto refuerzo: 2868
+Quinto refuerzo: 56
+Sexto refuerzo: 1
+Valores extras: 0

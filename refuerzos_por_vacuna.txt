@@ -1,0 +1,11 @@
+Pfizer Bivariante BA 4 5:14918
+AstraZeneca ChAdOx1 S recombinante:59947
+Pfizer Pediátrica:15584
+Sputnik V COVID19 Instituto Gamaleya:29526
+Moderna 010 mg mL:13064
+Moderna Bivariante BA 4 5:9851
+Moderna ARNm 020 mg mL:141396
+Sputnik Light:294
+Cansino Ad5 nCoV:48692
+Sinopharm Vacuna SARSCOV 2 inactivada:667
+Pfizer BioNTech Comirnaty:97318
