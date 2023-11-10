@@ -2,7 +2,7 @@
 ## Requisitos
 - Python >= 3.10
 - Git
-Aquí tienes una [guía]("https://elpythonista.com/como-instalar-python") de como instalar Python.
+Aquí tienes una [guia]("https://elpythonista.com/como-instalar-python" "Guía para instalar python") de como instalar Python.
 
 ## Pasos para ejecutar el programa en Windows
 
