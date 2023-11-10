@@ -1,8 +1,8 @@
 # Analisis de Bases NOMIVAC
 ## Requisitos
-- Python >= 3.10
+- Python >= 3.10. Aquí tienes una [guia]("https://elpythonista.com/como-instalar-python" "Guía para instalar python") de como instalar Python.
 - Git
-Aquí tienes una [guia]("https://elpythonista.com/como-instalar-python" "Guía para instalar python") de como instalar Python.
+
 
 ## Pasos para ejecutar el programa en Windows
 
