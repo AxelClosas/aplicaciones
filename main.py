@@ -1,11 +1,19 @@
-from Aplicaciones import Aplicaciones
-from AnalisisRefuerzo import AnalisisRefuerzo
-from AnalisisAplicaciones import AnalisisAplicaciones
-from GenerarReporte import GenerarReporte
+from app.Aplicaciones import Aplicaciones
+from app.AnalisisRefuerzo import AnalisisRefuerzo
+from app.AnalisisAplicaciones import AnalisisAplicaciones
+from app.GenerarReporte import GenerarReporte
+from app.Descomprimir import Descomprimir
+
+
 import time
 
 
 def run():
+    d = Descomprimir()
+    d.descomprimir()
+    d.mover_archivos_csv()
+    d.limpieza_de_directorio()
+
     vacunas = Aplicaciones()
     lista = vacunas.exportar_lista_vacunas()
     aplicaciones = AnalisisAplicaciones(lista)
