@@ -60,6 +60,20 @@ class Aplicaciones:
 
     # Se define la función transformar_datos que moldeará los datos que se requieran
     def transformar_datos(self) -> list:
+        def cambiar_nombre(item) -> dict:
+            cambiar_nombre = {
+                "Moderna": "Moderna ARNm 020 mg mL",
+                "Moderna Bivariante": "Moderna Bivariante BA 4 5",
+                "Pfizer": "Pfizer BioNTech Comirnaty",
+                "Pfizer Bivariante": "Pfizer Bivariante BA 4 5",
+                "Pfizer Pediatrica": "Pfizer Pediátrica",
+                "Moderna Pediatrica": "Moderna 010 mg mL",
+            }
+            for key, value in cambiar_nombre.items():
+                if value in item["VACUNA"]:
+                    item["VACUNA"] = key
+            return item
+
         def obtener(item) -> dict:
             n_dict = {
                 "ID": item["ID_CMDB_PERSONA"],
@@ -72,10 +86,12 @@ class Aplicaciones:
             return n_dict
 
         data = self.generar_lista()
-        nuevo = []
+        lista_de_vacunas = []
         for vacuna in data:
-            nuevo.extend(list(map(obtener, vacuna)))
-        return nuevo
+            lista_de_vacunas.extend(list(map(obtener, vacuna)))
+        lista_de_vacunas = list(map(cambiar_nombre, lista_de_vacunas))
+
+        return lista_de_vacunas
 
     # Utilizamos para exportar el resultado del proceso
     def exportar_lista_vacunas(self):
