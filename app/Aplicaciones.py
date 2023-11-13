@@ -1,4 +1,4 @@
-import platform
+from app import Funciones
 import csv
 import os
 
@@ -7,8 +7,6 @@ import os
 class Aplicaciones:
     # Definimos el constructor de nuestro programa
     def __init__(self):
-        # Capturo el sistema operativo para diseñar la ruta a la carpeta CSV
-        self.sistema = platform.system()
         # Guardo el retorno de la función prev
         self.lista_de_vacunas = self.transformar_datos()
 
@@ -16,16 +14,8 @@ class Aplicaciones:
     def obtener_nombres(self) -> list:
         nombres = []
         # Se obtiene la ruta absoluta hacia el directorio refuerzos
-        directorio_actual = os.getcwd()
-        # Mediante una función lambda retornamos verdadero o falso si el sistema capturado coincide con el S.O enviado como argumento
-        validar = lambda sys: self.sistema == sys
-        if validar("Windows"):
-            # Se crea la ruta hacia la carpeta CSV en Windows
-            carpeta_csv = f"{directorio_actual}\\CSV"
-        else:
-            # Se crea la ruta hacia la carpeta CSV en Linux
-            carpeta_csv = f"{directorio_actual}/CSV"
-        # Log de ejecución
+        carpeta_csv = Funciones.directorio_actual_segun_sistema()
+
         print(f"Leyendo directorio: {carpeta_csv}")
         # Con with y la función os.scandir podemos trabajar en el contexto actual del directorio y obtener los nombres de todos los ficheros almacenandolo en la variable ficheros -> lista
         with os.scandir(carpeta_csv) as ficheros:
