@@ -1,13 +1,9 @@
-from AnalisisRefuerzo import AnalisisRefuerzo
-import time
-
-
 class AnalisisAplicaciones:
     def __init__(self, lista_de_vacunas):
         self.lista_de_vacunas = lista_de_vacunas
-        self.primera_dosis = self.filtrar_primera_dosis()
-        self.primera_dosis = self.filtrar_primera_dosis()
-        self.primera_dosis = self.filtrar_primera_dosis()
+
+    def total_aplicaciones(self) -> int:
+        return len(self.lista_de_vacunas)
 
     def filtrar_primera_dosis(self) -> list:
         filtro_primera = []
@@ -38,17 +34,3 @@ class AnalisisAplicaciones:
             )
         )
         return filtro_adicional
-
-    def obtener_aplicaciones(self, nombre="aplicaciones_totales"):
-        primera_dosis = len(self.filtrar_primera_dosis())
-        segunda_dosis = len(self.filtrar_segunda_dosis())
-        unica_dosis = len(self.filtrar_dosis_unica())
-        dosis_adicional = len(self.filtrar_dosis_adicional())
-
-        print(f"Exportando archivo: {nombre}")
-        with open(f"{nombre}.txt", "w") as file:
-            file.write(
-                f"Actualización:\n\nPrimera dosis: {primera_dosis}\nSegunda dosis: {segunda_dosis}\nUnica dosis: {unica_dosis}\nDosis Adicional: {dosis_adicional}"
-            )
-        refuerzos = AnalisisRefuerzo(self.lista_de_vacunas)
-        refuerzos.obtener_refuerzos()
