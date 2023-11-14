@@ -103,7 +103,7 @@ class Aplicaciones:
             nuevo_archivo = f"{ruta_carpeta_csv}/BaseCompletaCOVID.csv"
 
         with open(nuevo_archivo, "w", newline="", encoding="utf-8") as csvfile:
-            writer = csv.writer(csvfile)
+            writer = csv.writer(csvfile, delimiter=";")
             writer.writerow(lista_de_vacunas[0].keys())
             for vacuna in lista_de_vacunas:
                 writer.writerow(vacuna.values())

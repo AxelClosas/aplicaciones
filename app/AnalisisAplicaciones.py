@@ -5,8 +5,24 @@ class AnalisisAplicaciones:
     def __init__(self, path_base_covid_completa):
         self.lista_de_vacunas = PL.read_csv(path_base_covid_completa)
 
+    def mostrar_lista_de_vacunas(self) -> list:
+        return self.lista_de_vacunas
+
     def total_aplicaciones(self) -> int:
         return len(self.lista_de_vacunas)
+
+    def total_aplicaciones_catamarca_domicilio(self) -> int:
+        return len(self.filtrar_provincia_catamarca())
+
+    def filtrar_provincia_catamarca(self) -> list:
+        filtro = []
+        filtro.extend(
+            filter(
+                lambda item: "Catamarca" in item["PROVINCIA_DOMICILIO"],
+                self.lista_de_vacunas,
+            )
+        )
+        return filtro
 
     def filtrar_primera_dosis(self) -> list:
         filtro_primera = []

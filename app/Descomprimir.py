@@ -17,10 +17,8 @@ class Descomprimir:
             # Descomprimir primer archivo "CATAMARCA.zip"
             if es_windows:
                 ruta_comprimido = f"{ruta_carpeta_csv}\\{nombre_comprimido}"
-                ruta_nombre_archivo = f"{ruta_carpeta_csv}\\{nombre_archivo}"
             else:
                 ruta_comprimido = f"{ruta_carpeta_csv}/{nombre_comprimido}"
-                ruta_nombre_archivo = f"{ruta_carpeta_csv}/{nombre_archivo}"
 
             print(f"Descomprimiendo archivo {nombre_comprimido}")
 
@@ -34,6 +32,10 @@ class Descomprimir:
                         nombre_de_archivos_comprimidos.append(fichero.name)
             # Recorre cada nombre para descomprimir los archivos
             for nombre_archivo in nombre_de_archivos_comprimidos:
+                if es_windows:
+                    ruta_nombre_archivo = f"{ruta_carpeta_csv}\\{nombre_archivo}"
+                else:
+                    ruta_nombre_archivo = f"{ruta_carpeta_csv}/{nombre_archivo}"
                 print(f"Descomprimiendo archivo {nombre_archivo}")
                 with zipfile.ZipFile(ruta_nombre_archivo, "r") as file:
                     file.extractall(path=ruta_carpeta_csv)

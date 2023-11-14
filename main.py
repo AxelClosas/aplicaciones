@@ -21,10 +21,12 @@ def run():
             if nombre_archivo_base_completa == fichero.name:
                 base_existe = True
                 break
-
+    # Si la base ya existe, aquí armamos el menú
     if base_existe:
-        print(f"Archivo {nombre_archivo_base_completa} existente.")
-        print(ruta_completa_base_covid)
+        analisis_aplicaciones = AP.AnalisisAplicaciones(ruta_completa_base_covid)
+        print(analisis_aplicaciones.mostrar_lista_de_vacunas())
+        # print(analisis_aplicaciones.total_aplicaciones())
+        # print(analisis_aplicaciones.total_aplicaciones_catamarca_domicilio())
     else:
         print(
             "\nHola!, en unos segundos iniciará el proceso de descompresión del archivo principal que contiene las bases de datos..."
