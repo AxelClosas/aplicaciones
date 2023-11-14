@@ -1,6 +1,9 @@
+import app.ProcesosLogica as PL
+
+
 class AnalisisAplicaciones:
-    def __init__(self, lista_de_vacunas):
-        self.lista_de_vacunas = lista_de_vacunas
+    def __init__(self, path_base_covid_completa):
+        self.lista_de_vacunas = PL.read_csv(path_base_covid_completa)
 
     def total_aplicaciones(self) -> int:
         return len(self.lista_de_vacunas)
