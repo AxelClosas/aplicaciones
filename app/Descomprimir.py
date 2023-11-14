@@ -1,4 +1,4 @@
-from app.Funciones import directorio_actual_segun_sistema
+import app.ProcesosLogica as PL
 import zipfile
 import os
 import shutil
@@ -13,7 +13,7 @@ class Descomprimir:
         try:
             mi_archivo = "CATAMARCA.zip"
             nombre_de_archivos_comprimidos = []
-            carpeta_csv = directorio_actual_segun_sistema()
+            carpeta_csv = PL.directorio_actual_segun_sistema()
             # Descomprimir primer archivo "CATAMARCA.zip"
             print(f"Descomprimiendo archivo {mi_archivo}")
             with zipfile.ZipFile(f"{carpeta_csv}/{mi_archivo}", "r") as file:

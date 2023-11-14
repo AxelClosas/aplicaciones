@@ -1,25 +1,19 @@
-from app.Aplicaciones import Aplicaciones
+import app.ProcesosLogica as PL
 from app.AnalisisRefuerzo import AnalisisRefuerzo
 from app.AnalisisAplicaciones import AnalisisAplicaciones
 from app.GenerarReporte import GenerarReporte
-from app.Descomprimir import Descomprimir
-
 
 import time
 
 
 def run():
-    d = Descomprimir()
-    d.descomprimir()
-    d.mover_archivos_csv()
-    d.limpieza_de_directorio()
-
-    vacunas = Aplicaciones()
-    lista = vacunas.exportar_lista_vacunas()
-    aplicaciones = AnalisisAplicaciones(lista)
-    refuerzos = AnalisisRefuerzo(lista)
-    reporte = GenerarReporte(aplicaciones, refuerzos)
-    reporte.generar_reporte_de_dosis_aplicadas_y_refuerzos()
+    # Ejecuta la función que se encuentre en ProcesosLogica
+    # PL.desempaquetadoDeComprimidoZIP()
+    pass
+    # aplicaciones = AnalisisAplicaciones(lista)
+    # refuerzos = AnalisisRefuerzo(lista)
+    # reporte = GenerarReporte(aplicaciones, refuerzos)
+    # reporte.generar_reporte_de_dosis_aplicadas_y_refuerzos()
 
 
 if __name__ == "__main__":
