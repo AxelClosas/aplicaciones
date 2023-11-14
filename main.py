@@ -2,6 +2,7 @@ import app.ProcesosLogica as PL
 import app.AnalisisRefuerzo as AR
 import app.AnalisisAplicaciones as AP
 import app.GenerarReporte as GR
+import app.Sanitizar as SA
 import time
 import os
 
@@ -23,10 +24,10 @@ def run():
                 break
     # Si la base ya existe, aquí armamos el menú
     if base_existe:
-        analisis_aplicaciones = AP.AnalisisAplicaciones(ruta_completa_base_covid)
-        print(analisis_aplicaciones.mostrar_lista_de_vacunas())
-        # print(analisis_aplicaciones.total_aplicaciones())
-        # print(analisis_aplicaciones.total_aplicaciones_catamarca_domicilio())
+        lista_de_vacunas = PL.read_csv(ruta_completa_base_covid)
+        sanitizador = SA.Sanitizar(lista_de_vacunas)
+        print(sanitizador.sanitizar())
+
     else:
         print(
             "\nHola!, en unos segundos iniciará el proceso de descompresión del archivo principal que contiene las bases de datos..."

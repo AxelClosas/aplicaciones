@@ -14,6 +14,18 @@ class AnalisisAplicaciones:
     def total_aplicaciones_catamarca_domicilio(self) -> int:
         return len(self.filtrar_provincia_catamarca())
 
+    def total_aplicaciones_por_departamento(self) -> dict:
+        return self.filtrar_departamentos()
+
+    def filtrar_departamentos(self) -> list:
+        aplicaciones = self.filtrar_provincia_catamarca()
+        ap_deptos_domicilio = set()
+        ap_deptos_establecimiento = set()
+        for aplicacion in aplicaciones:
+            ap_deptos_establecimiento.add(aplicacion["DEPTO_ESTABLECIMIENTO"])
+            ap_deptos_domicilio.add(aplicacion["DEPTO_DOMICILIO"])
+        return ap_deptos_domicilio, ap_deptos_establecimiento
+
     def filtrar_provincia_catamarca(self) -> list:
         filtro = []
         filtro.extend(

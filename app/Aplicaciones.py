@@ -63,20 +63,29 @@ class Aplicaciones:
 
         def obtener(item) -> dict:
             n_dict = {
+                # Datos personales
                 "ID": int(item["ID_CMDB_PERSONA"]),
                 "NRO_DOC": item["NRO_DOC"],
                 "FECHA_NACIMIENTO": item["FECHA_NACIMIENTO"],
+                # Datos de domicilio
+                "ID_PROVINCIA_DOMICILIO": item["ID_PROVINCIA_DOMICILIO"],
                 "PROVINCIA_DOMICILIO": item["PROVINCIA_DOMICILIO"],
                 "ID_DEPTO_DOMICILIO": item["ID_DEPTO_DOMICILIO"],
                 "DEPTO_DOMICILIO": item["DEPTO_DOMICILIO"],
+                "ID_LOCALIDAD_DOMICILIO": item["ID_LOCALIDAD_DOMICILIO"],
                 "LOCALIDAD_DOMICILIO": item["LOCALIDAD_DOMICILIO"],
+                # Datos de establecimiento de aplicación
+                "ID_LOCALIDAD_ESTABLECIMIENTO": item["ID_LOCALIDAD_ESTABLECIMIENTO"],
+                "LOCALIDAD_ESTABLECIMIENTO": item["LOCALIDAD_ESTABLECIMIENTO"],
                 "COD_ESTABLECIMIENTO": item["COD_ESTABLECIMIENTO"],
                 "ESTABLECIMIENTO": item["ESTABLECIMIENTO"],
+                "ID_DEPTO_ESTABLECIMIENTO": item["ID_DEPTO_ESTABLECIMIENTO"],
+                "DEPTO_ESTABLECIMIENTO": item["DEPTO_ESTABLECIMIENTO"],
+                # Datos de Aplicación de la Vacuna
                 "FECHA_APLICACION": item["FECHA_APLICACION"],
                 "VACUNA": item["VACUNA"],
                 "NOMBRE_DOSIS": item["NOMBRE_DOSIS"],
                 "LOTE_VACUNA": item["LOTE_VACUNA"],
-                "ID_USUARIO_REGISTRO": item["ID_USUARIO_REGISTRO"],
             }
             return n_dict
 
