@@ -1,7 +1,6 @@
 import app.ProcesosLogica as PL
 import csv
 import os
-from datetime import datetime
 
 
 # Se crea la clase aplicaciones
@@ -10,21 +9,10 @@ class Aplicaciones:
     def __init__(self, carpeta_csv="CSV"):
         self.carpeta_csv = carpeta_csv
 
-    # Se lee la carpeta CSV y retorna una lista con los nombres de los archivos
-    def generar_ruta_carpeta_csv(self):
-        # Recibe True si es Windows o False si no lo és
-        es_windows = PL.sistema_actual()
-        directorio_actual = os.getcwd()
-        if es_windows:
-            ruta_carpeta_csv = f"{directorio_actual}\\{self.carpeta_csv}"
-        else:
-            ruta_carpeta_csv = f"{directorio_actual}/{self.carpeta_csv}"
-        return ruta_carpeta_csv
-
     def obtener_nombres(self) -> list:
         nombres = []
         # Se obtiene la ruta absoluta hacia el directorio refuerzos
-        ruta_carpeta_csv = self.generar_ruta_carpeta_csv()
+        ruta_carpeta_csv = PL.generar_ruta_carpeta_csv(self.carpeta_csv)
         print(f"Leyendo directorio: {ruta_carpeta_csv}")
         # Con with y la función os.scandir podemos trabajar en el contexto actual del directorio y obtener los nombres de todos los ficheros almacenandolo en la variable ficheros -> lista
         with os.scandir(ruta_carpeta_csv) as ficheros:
@@ -40,7 +28,7 @@ class Aplicaciones:
         data = []
         es_windows = PL.sistema_actual()
         archivos = self.obtener_nombres()
-        ruta_carpeta_csv = self.generar_ruta_carpeta_csv()
+        ruta_carpeta_csv = PL.generar_ruta_carpeta_csv(self.carpeta_csv)
         if es_windows:
             rutas_completas_archivos = [
                 f"{ruta_carpeta_csv}\\{archivo}" for archivo in archivos if es_windows
@@ -51,22 +39,9 @@ class Aplicaciones:
                 for archivo in archivos
                 if not es_windows
             ]
-        data.extend(list(map(self.read_csv, rutas_completas_archivos)))
+        data.extend(list(map(PL.read_csv, rutas_completas_archivos)))
         # for archivo in rutas_completas_archivos:
         #     data.append(self.read_csv(archivo))
-
-        return data
-
-    # Función que procesa la lectura y guardado de un archivo csv
-    def read_csv(self, path) -> list:
-        with open(path, "r", encoding="latin-1") as csvfile:
-            reader = csv.reader(csvfile, delimiter=";")
-            header = next(reader)
-            data = []
-            for row in reader:
-                iterable = zip(header, row)
-                vacuna_aplicada = {key: value for key, value in iterable}
-                data.append(vacuna_aplicada)
 
         return data
 
@@ -115,12 +90,19 @@ class Aplicaciones:
 
     # Utilizamos para exportar el resultado del proceso
     def exportar_lista_vacunas(self):
+        ruta_carpeta_csv = PL.generar_ruta_carpeta_csv(self.carpeta_csv)
+        es_windows = PL.sistema_actual()
+
         print("Aguarda un momento, esto puede demorar entre 1 y 2 minutos...")
         lista_de_vacunas = self.transformar_datos()
         print("Exportando archivo BaseCompletaCOVID.csv")
-        with open(
-            "BaseCompletaCOVID.csv", "w", newline="", encoding="utf-8"
-        ) as csvfile:
+
+        if es_windows:
+            nuevo_archivo = f"{ruta_carpeta_csv}\\BaseCompletaCOVID.csv"
+        else:
+            nuevo_archivo = f"{ruta_carpeta_csv}/BaseCompletaCOVID.csv"
+
+        with open(nuevo_archivo, "w", newline="", encoding="utf-8") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(lista_de_vacunas[0].keys())
             for vacuna in lista_de_vacunas:
