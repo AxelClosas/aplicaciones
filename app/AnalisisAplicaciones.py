@@ -1,40 +1,17 @@
 import app.ProcesosLogica as PL
+import csv
 
 
 class AnalisisAplicaciones:
-    def __init__(self, path_base_covid_completa):
-        self.lista_de_vacunas = PL.read_csv(path_base_covid_completa)
-
-    def mostrar_lista_de_vacunas(self) -> list:
-        return self.lista_de_vacunas
+    def __init__(self, lista_de_vacunas_completa, lista_de_vacunas_catamarca):
+        self.lista_de_vacunas_completa = lista_de_vacunas_completa
+        self.lista_de_vacunas_catamarca = lista_de_vacunas_catamarca
 
     def total_aplicaciones(self) -> int:
-        return len(self.lista_de_vacunas)
+        return len(self.lista_de_vacunas_completa)
 
-    def total_aplicaciones_catamarca_domicilio(self) -> int:
-        return len(self.filtrar_provincia_catamarca())
-
-    def total_aplicaciones_por_departamento(self) -> dict:
-        return self.filtrar_departamentos()
-
-    def filtrar_departamentos(self) -> list:
-        aplicaciones = self.filtrar_provincia_catamarca()
-        ap_deptos_domicilio = set()
-        ap_deptos_establecimiento = set()
-        for aplicacion in aplicaciones:
-            ap_deptos_establecimiento.add(aplicacion["DEPTO_ESTABLECIMIENTO"])
-            ap_deptos_domicilio.add(aplicacion["DEPTO_DOMICILIO"])
-        return ap_deptos_domicilio, ap_deptos_establecimiento
-
-    def filtrar_provincia_catamarca(self) -> list:
-        filtro = []
-        filtro.extend(
-            filter(
-                lambda item: "Catamarca" in item["PROVINCIA_DOMICILIO"],
-                self.lista_de_vacunas,
-            )
-        )
-        return filtro
+    def total_aplicaciones_catamarca(self) -> int:
+        return len(self.lista_de_vacunas_catamarca)
 
     def filtrar_primera_dosis(self) -> list:
         filtro_primera = []
