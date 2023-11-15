@@ -1,24 +1,6 @@
-import app.Aplicaciones as APL
-import app.Descomprimir as Des
-
 from platform import system
 import os
 import csv
-
-
-def desempaquetadoDeComprimidoZIP():
-    descompresor = Des.Descomprimir()
-    print("Descomprimiendo archivo...")
-    descompresor.descomprimir()
-    print("Moviendo archivos...")
-    descompresor.mover_archivos_csv()
-    print("Limpiando directorio...")
-    descompresor.limpieza_de_directorio()
-
-
-def creacionDeBaseDeDatosCompletaCOVID():
-    aplicaciones = APL.Aplicaciones()
-    aplicaciones.exportar_lista_vacunas()
 
 
 def sistema_actual():
