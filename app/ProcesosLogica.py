@@ -41,29 +41,6 @@ def generar_ruta_carpeta_csv(carpeta_csv):
 
 
 def read_csv(path) -> list:
-    letras_acentuadas = {
-        "á": "a",
-        "â": "a",
-        "à": "a",
-        "ä": "a",
-        "é": "e",
-        "ê": "e",
-        "è": "e",
-        "ë": "e",
-        "í": "i",
-        "î": "i",
-        "ì": "i",
-        "ï": "i",
-        "ó": "o",
-        "ô": "o",
-        "ò": "o",
-        "ö": "o",
-        "ú": "u",
-        "û": "u",
-        "ù": "u",
-        "ü": "u",
-    }
-
     with open(path, "r", encoding="latin-1") as csvfile:
         reader = csv.reader(csvfile, delimiter=";")
         header = next(reader)

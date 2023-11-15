@@ -64,7 +64,7 @@ class Aplicaciones:
         def obtener(item) -> dict:
             n_dict = {
                 # Datos personales
-                "ID": int(item["ID_CMDB_PERSONA"]),
+                "ID": item["ID_CMDB_PERSONA"],
                 "NRO_DOC": item["NRO_DOC"],
                 "FECHA_NACIMIENTO": item["FECHA_NACIMIENTO"],
                 # Datos de domicilio

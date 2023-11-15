@@ -2,7 +2,6 @@ import app.ProcesosLogica as PL
 import app.AnalisisRefuerzo as AR
 import app.AnalisisAplicaciones as AP
 import app.GenerarReporte as GR
-import app.Sanitizar as SA
 import time
 import os
 
@@ -25,22 +24,29 @@ def run():
     # Si la base ya existe, aquí armamos el menú
     if base_existe:
         lista_de_vacunas = PL.read_csv(ruta_completa_base_covid)
-        sanitizador = SA.Sanitizar(lista_de_vacunas)
-        print(sanitizador.sanitizar())
+        print(lista_de_vacunas[4000:4030])
 
     else:
-        print(
-            "\nHola!, en unos segundos iniciará el proceso de descompresión del archivo principal que contiene las bases de datos..."
-        )
-        time.sleep(2)
-        PL.desempaquetadoDeComprimidoZIP()
-        print("Uniendo archivos para generar base de datos completa")
-        PL.creacionDeBaseDeDatosCompletaCOVID()
-        print(
-            "Parece que todo salió bien!, ejecuta nuevamente el script para obtener los datos que precises. Hasta pronto!"
-        )
-        time.sleep(2)
-        exit()
+        try:
+            print(
+                "\nHola!, en unos segundos iniciará el proceso de descompresión del archivo principal que contiene las bases de datos..."
+            )
+            time.sleep(2)
+            PL.desempaquetadoDeComprimidoZIP()
+            print("Uniendo archivos para generar base de datos completa")
+            PL.creacionDeBaseDeDatosCompletaCOVID()
+            print(
+                "Parece que todo salió bien!, ejecuta nuevamente el script para obtener los datos que precises. Hasta pronto!"
+            )
+            time.sleep(2)
+            exit()
+        except FileNotFoundError as e:
+            PL.creacionDeBaseDeDatosCompletaCOVID()
+            print(
+                "Parece que todo salió bien!, ejecuta nuevamente el script para obtener los datos que precises. Hasta pronto!"
+            )
+            time.sleep(2)
+            exit()
 
 
 if __name__ == "__main__":
