@@ -1,0 +1,18 @@
+Total de registros input1 con id_prov = 3, 0 y Vacio: 931292
+0: 16543
+vacio: 952
+3: 913797
+
+
+Total de registros input2 con id_prov = 3, 0 y Vacio: 276552
+0: 3529
+VACIO: 387
+3: 272636
+
+total 0: 16543 + 3529 = 20072
+total 3: 913797 + 272636 = 1186433
+total vacio: 952 + 387 = 1339
+
+Registros en total: 1.207.844
+
+Registros totales en base: 283696 + 956568 = 1.240.264
