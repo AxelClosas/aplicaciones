@@ -22,11 +22,14 @@ def run():
             lista_de_vacunas_completa, lista_de_vacunas_catamarca
         )
 
-        print("Total dosis: ", analisis_aplicaciones.total_aplicaciones())
-        print(
-            "Total dosis Catamarca: ",
-            analisis_aplicaciones.total_aplicaciones_catamarca(),
-        )
+        # print("Total dosis: ", analisis_aplicaciones.total_aplicaciones())
+        # print(
+        #     "Total dosis Catamarca: ",
+        #     analisis_aplicaciones.total_aplicaciones_catamarca(),
+        # )
+
+        # Exportar archivo con dosis aplicadas por id_depto
+        analisis_aplicaciones.total_aplicaciones_por_departamento_csv()
 
     else:
         try:
