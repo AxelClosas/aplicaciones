@@ -33,3 +33,15 @@ def read_csv(path) -> list:
             data.append(vacuna_aplicada)
 
     return data
+
+
+def obtener_id_departamentos_desde_archivo(
+    nombre_carpeta="DocumentosClave", nombre_archivo="id_departamentos_auxiliar.csv"
+):
+    nuevo = {}
+    deptos = read_csv(f"{nombre_carpeta}/{nombre_archivo}")
+    for item in deptos:
+        nuevo[int(item["ID"])] = item["DEPARTAMENTO"]
+
+    if nuevo:
+        return nuevo
