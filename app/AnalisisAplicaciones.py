@@ -5,7 +5,9 @@ import csv
 # [1,2,3,4,5,6]
 # ["axel" => "closas" ]
 class AnalisisAplicaciones:
-    def __init__(self, lista_de_vacunas_completa, lista_de_vacunas_catamarca):
+    def __init__(
+        self, lista_de_vacunas_completa: list, lista_de_vacunas_catamarca: list
+    ):
         self.lista_de_vacunas_completa = lista_de_vacunas_completa
         self.lista_de_vacunas_catamarca = lista_de_vacunas_catamarca
 
@@ -15,11 +17,7 @@ class AnalisisAplicaciones:
     def total_aplicaciones_catamarca(self) -> int:
         return len(self.lista_de_vacunas_catamarca)
 
-    def total_aplicaciones_por_departamento_csv(
-        self,
-        nombre_archivo="aplicaciones_por_id_depto.csv",
-        carpeta_destino="Resultados",
-    ) -> csv:
+    def total_aplicaciones_por_departamento(self) -> dict:
         deptos = PL.obtener_id_departamentos_desde_archivo()
         frecuencia = {}
         resultado = {}
@@ -35,41 +33,114 @@ class AnalisisAplicaciones:
             for key in frecuencia.keys()
             if key in deptos.keys()
         }
+        return resultado
 
-        if frecuencia and resultado:
-            with open(
-                f"{carpeta_destino}/{nombre_archivo}", "w", encoding="latin-1"
-            ) as csvfile:
-                csvfile.write("Provincia;Cantidad\n")
-                for key, value in resultado.items():
-                    csvfile.write(f"{key};{value}\n")
+    def total_aplicaciones_por_vacuna(self) -> dict:
+        frecuencia = {}
+        for item in self.lista_de_vacunas_completa:
+            if item["VACUNA"] in frecuencia.keys():
+                frecuencia[item["VACUNA"]] += 1
+            else:
+                frecuencia[item["VACUNA"]] = 1
+        return frecuencia
+
+    def total_aplicaciones_por_vacuna_catamarca(self) -> dict:
+        frecuencia = {}
+        for item in self.lista_de_vacunas_catamarca:
+            if item["VACUNA"] in frecuencia.keys():
+                frecuencia[item["VACUNA"]] += 1
+            else:
+                frecuencia[item["VACUNA"]] = 1
+        return frecuencia
 
     def filtrar_primera_dosis(self) -> list:
-        filtro_primera = []
-        filtro_primera.extend(
-            list(filter(lambda item: "1ra" in item["DOSIS"], self.lista_de_vacunas))
-        )
-        return filtro_primera
+        filtro_primera_completa = []
+        filtro_primera_catamarca = []
 
-    def filtrar_segunda_dosis(self) -> list:
-        filtro_segunda = []
-        filtro_segunda.extend(
-            list(filter(lambda item: "2da" in item["DOSIS"], self.lista_de_vacunas))
-        )
-        return filtro_segunda
-
-    def filtrar_dosis_unica(self) -> list:
-        filtro_unica = []
-        filtro_unica.extend(
-            list(filter(lambda item: "Unica" in item["DOSIS"], self.lista_de_vacunas))
-        )
-        return filtro_unica
-
-    def filtrar_dosis_adicional(self) -> list:
-        filtro_adicional = []
-        filtro_adicional.extend(
+        filtro_primera_completa.extend(
             list(
-                filter(lambda item: "Adicional" in item["DOSIS"], self.lista_de_vacunas)
+                filter(
+                    lambda item: "1ra" in item["NOMBRE_DOSIS"],
+                    self.lista_de_vacunas_completa,
+                )
             )
         )
-        return filtro_adicional
+
+        filtro_primera_catamarca.extend(
+            list(
+                filter(
+                    lambda item: "1ra" in item["NOMBRE_DOSIS"],
+                    self.lista_de_vacunas_catamarca,
+                )
+            )
+        )
+
+        return filtro_primera_completa, filtro_primera_catamarca
+
+    def filtrar_segunda_dosis(self) -> list:
+        filtro_segunda_completa = []
+        filtro_segunda_catamarca = []
+
+        filtro_segunda_completa.extend(
+            list(
+                filter(
+                    lambda item: "2da" in item["NOMBRE_DOSIS"],
+                    self.lista_de_vacunas_completa,
+                )
+            )
+        )
+        filtro_segunda_catamarca.extend(
+            list(
+                filter(
+                    lambda item: "2da" in item["NOMBRE_DOSIS"],
+                    self.lista_de_vacunas_catamarca,
+                )
+            )
+        )
+        return filtro_segunda_completa, filtro_segunda_catamarca
+
+    def filtrar_dosis_unica(self) -> list:
+        filtro_unica_completa = []
+        filtro_unica_catamarca = []
+
+        filtro_unica_completa.extend(
+            list(
+                filter(
+                    lambda item: "Unica" in item["NOMBRE_DOSIS"],
+                    self.lista_de_vacunas_completa,
+                )
+            )
+        )
+
+        filtro_unica_catamarca.extend(
+            list(
+                filter(
+                    lambda item: "Unica" in item["NOMBRE_DOSIS"],
+                    self.lista_de_vacunas_catamarca,
+                )
+            )
+        )
+        return filtro_unica_completa, filtro_unica_catamarca
+
+    def filtrar_dosis_adicional(self) -> list:
+        filtro_adicional_completa = []
+        filtro_adicional_catamarca = []
+
+        filtro_adicional_completa.extend(
+            list(
+                filter(
+                    lambda item: "Adicional" in item["NOMBRE_DOSIS"],
+                    self.lista_de_vacunas_completa,
+                )
+            )
+        )
+
+        filtro_adicional_catamarca.extend(
+            list(
+                filter(
+                    lambda item: "Adicional" in item["NOMBRE_DOSIS"],
+                    self.lista_de_vacunas_catamarca,
+                )
+            )
+        )
+        return filtro_adicional_completa, filtro_adicional_catamarca
