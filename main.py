@@ -3,6 +3,7 @@ import app.AnalisisAplicaciones as AP
 import app.LogicaNegocio as LN
 import time
 import os
+from menu import menu
 
 
 def run():
@@ -17,20 +18,29 @@ def run():
         lista_de_vacunas_catamarca = LN.procesoObtenerListaDeVacunasDeCatamarca(
             lista_de_vacunas_completa
         )
+        print(menu())
+        opcion = int(input("Opción => "))
 
-        analisis_aplicaciones = AP.AnalisisAplicaciones(
-            lista_de_vacunas_completa, lista_de_vacunas_catamarca
-        )
-
-        # print("Total dosis: ", analisis_aplicaciones.total_aplicaciones())
-        # print(
-        #     "Total dosis Catamarca: ",
-        #     analisis_aplicaciones.total_aplicaciones_catamarca(),
-        # )
-
-        # Exportar archivo con dosis aplicadas por id_depto
-        analisis_aplicaciones.total_aplicaciones_por_departamento_csv()
-
+        match opcion:
+            case 1:
+                print("Generando reporte...\n")
+                LN.generarPrimerReporte(
+                    lista_de_vacunas_completa, lista_de_vacunas_catamarca
+                )
+            case 2:
+                print("Generando reporte...\n")
+                LN.generarSegundoReporte(
+                    lista_de_vacunas_completa, lista_de_vacunas_catamarca
+                )
+            case 3:
+                print("Generando reporte...\n")
+                LN.generarTercerReporte(
+                    lista_de_vacunas_completa, lista_de_vacunas_catamarca
+                )
+            case _:
+                print(
+                    "Ups... El número que ingresaste no se encuentra en el menú. Por favor, elije otro."
+                )
     else:
         try:
             print(
