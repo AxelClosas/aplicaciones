@@ -1,3 +1,4 @@
+# Se importan los modulos necesarios
 import app.ProcesosLogica as PL
 import app.Aplicaciones as APL
 import app.Descomprimir as Des
@@ -7,15 +8,19 @@ import app.AnalisisAplicaciones as AP
 import app.AnalisisRefuerzo as AR
 import app.MoverArchivos as MA
 import app.Limpieza as LIMP
+from app.Configuraciones import nombre_carpeta_csv, nombre_archivo_base_completa
 
 
 def creditos():
     return "Programa creado por: Axel Closas Agüero"
 
 
-def consultarExistenciaDeBaseDeDatosCompletaCOVID():
-    ruta_carpeta_csv = PL.generar_ruta_carpeta_csv(carpeta_csv="CSV")
-    nombre_archivo_base_completa = "BaseCompletaCOVID.csv"
+# Proceso para consultar la existencia de la Base de Datos
+def consultarExistenciaDeBaseDeDatosCompletaCOVID(
+    nombre_archivo_base_completa=nombre_archivo_base_completa,
+):
+    # Se obtiene la ruta a la carpeta CSV
+    ruta_carpeta_csv = PL.generar_ruta_carpeta_csv(carpeta_csv=nombre_carpeta_csv)
     es_windows = PL.sistema_actual()
     ruta_completa_base_covid = f"{ruta_carpeta_csv}\\{nombre_archivo_base_completa}"
     if not es_windows:
