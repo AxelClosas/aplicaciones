@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,macos,python,images
 
 CSV/*.csv
+Resultados/
 
 ### Images ###
 # JPEG
