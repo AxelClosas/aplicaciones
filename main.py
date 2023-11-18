@@ -17,13 +17,18 @@ def run():
 
     # Se comprueba si la base existe para desarrollar la lógica principal
     if base_existe:
+        # Se obtiene la lista completa de aplicaciones desde la Base Completa
         lista_de_vacunas_completa = PL.read_csv(ruta_completa_base_covid)
+        # Se obtiene la lista de aplicaciones de la población de Catamarca
         lista_de_vacunas_catamarca = LN.procesoObtenerListaDeVacunasDeCatamarca(
             lista_de_vacunas_completa
         )
+        # Se imprimé el Menú
         print(menu())
+        # Se captura la opción elegida por el usuario
         opcion = int(input("Opción => "))
 
+        # Hacemos Match con la opción y en cada caso ejecutamos la lógica necesaria
         match opcion:
             case 1:
                 print("Generando reporte...\n")
@@ -40,6 +45,7 @@ def run():
                 LN.generarTercerReporte(
                     lista_de_vacunas_completa, lista_de_vacunas_catamarca
                 )
+            # En caso de ingresar una opción no valida, se imprimé el mensaje y se corta la ejecución del Script
             case _:
                 print(
                     "Ups... El número que ingresaste no se encuentra en el menú. Por favor, elije otro."
@@ -47,31 +53,22 @@ def run():
     # En caso de no existir, se busca obtener los archivos necesarios para crear la Base de Datos
     else:
         # Con el bloque try except capturamos potencionales errores como el no encontrar los archivos necesarios
-        try:
-            print(
-                "\nHola!, en unos segundos iniciará el proceso de descompresión del archivo principal que contiene las bases de datos..."
-            )
-            time.sleep(2)
-            # Se ejecuta el proceso de descomprimir el archivo descargado desde la nube
-            LN.desempaquetadoDeComprimidoZIP()
+        print(
+            "\nHola!, en unos segundos iniciará el proceso de descompresión del archivo principal que contiene las bases de datos..."
+        )
+        time.sleep(2)
+        # Se ejecuta el proceso de descomprimir el archivo descargado desde la nube
+        LN.desempaquetadoDeComprimidoZIP()
 
-            # Terminado el proceso de desempaquetado. Se inicia la ejecución del proceso de creación de la Base de Datos
-            print("Uniendo archivos para generar base de datos completa")
-            LN.creacionDeBaseDeDatosCompletaCOVID()
-            print(
-                "Parece que todo salió bien!, ejecuta nuevamente el script para obtener los datos que precises. Hasta pronto!"
-            )
-            # Esperamos 2 segundos antes de cortar la ejecución del Programa
-            time.sleep(2)
-            exit()
-
-        except FileNotFoundError as e:
-            LN.creacionDeBaseDeDatosCompletaCOVID()
-            print(
-                "Parece que todo salió bien!, ejecuta nuevamente el script para obtener los datos que precises. Hasta pronto!"
-            )
-            time.sleep(2)
-            exit()
+        # Terminado el proceso de desempaquetado. Se inicia la ejecución del proceso de creación de la Base de Datos
+        print("Uniendo archivos para generar base de datos completa")
+        LN.creacionDeBaseDeDatosCompletaCOVID()
+        print(
+            "Parece que todo salió bien!, ejecuta nuevamente el script para obtener los datos que precises. Hasta pronto!"
+        )
+        # Esperamos 2 segundos antes de cortar la ejecución del Programa
+        time.sleep(2)
+        exit()
 
 
 # Implementamos el condicional para poder ejecutar el programa desde la Consola de Comandos
