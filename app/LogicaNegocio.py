@@ -5,6 +5,8 @@ import app.ProcesarDatosDeCatamarca as PDC
 import os
 import app.AnalisisAplicaciones as AP
 import app.AnalisisRefuerzo as AR
+import app.MoverArchivos as MA
+import app.Limpieza as LIMP
 
 
 def creditos():
@@ -32,12 +34,15 @@ def consultarExistenciaDeBaseDeDatosCompletaCOVID():
 
 def desempaquetadoDeComprimidoZIP():
     descompresor = Des.Descomprimir()
-    print("Descomprimiendo archivo...")
+    mover_archivos = MA.MoverArchivos()
+    limpieza = LIMP.Limpieza()
     descompresor.descomprimir()
     print("Moviendo archivos...")
-    descompresor.mover_archivos_csv()
+    mover_archivos.mover_archivos_csv()
     print("Limpiando directorio...")
-    descompresor.limpieza_de_directorio()
+    limpieza.limpieza_de_directorio()
+
+    del descompresor, mover_archivos, limpieza
 
 
 def creacionDeBaseDeDatosCompletaCOVID():
