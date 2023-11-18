@@ -1,3 +1,4 @@
+from Configuraciones import archivo_id_departamentos, documentos_clave
 from platform import system
 import os
 import csv
@@ -36,7 +37,7 @@ def read_csv(path) -> list:
 
 
 def obtener_id_departamentos_desde_archivo(
-    nombre_carpeta="DocumentosClave", nombre_archivo="id_departamentos_auxiliar.csv"
+    nombre_carpeta=documentos_clave, nombre_archivo=archivo_id_departamentos
 ):
     nuevo = {}
     deptos = read_csv(f"{nombre_carpeta}/{nombre_archivo}")
