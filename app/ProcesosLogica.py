@@ -1,4 +1,4 @@
-from Configuraciones import archivo_id_departamentos, documentos_clave
+from app.Configuraciones import archivo_id_departamentos, documentos_clave
 from platform import system
 import os
 import csv
