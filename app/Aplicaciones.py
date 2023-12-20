@@ -86,6 +86,9 @@ class Aplicaciones:
                 "VACUNA": item["VACUNA"],
                 "NOMBRE_DOSIS": item["NOMBRE_DOSIS"],
                 "LOTE_VACUNA": item["LOTE_VACUNA"],
+                # ESQUEMA
+                "CODIGO_ESQUEMA": int(item["CODIGO_ESQUEMA"]),
+                "ESQUEMA": item["ESQUEMA"],
             }
             return n_dict
 

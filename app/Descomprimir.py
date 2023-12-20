@@ -1,11 +1,14 @@
-from app.Configuraciones import nombre_archivo_comprimido_principal, nombre_carpeta_csv
+from app.Configuraciones import (
+    nombre_archivo_comprimido_principal,
+    nombre_carpeta_csv_nomivac,
+)
 import app.ProcesosLogica as PL
 import zipfile
 import os
 
 
 class Descomprimir:
-    def __init__(self, carpeta_csv=nombre_carpeta_csv):
+    def __init__(self, carpeta_csv=nombre_carpeta_csv_nomivac):
         self.carpeta_csv = carpeta_csv
 
     def comprobar_existencia_de_archivo(self):

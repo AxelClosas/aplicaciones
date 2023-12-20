@@ -8,7 +8,12 @@ import app.AnalisisAplicaciones as AP
 import app.AnalisisRefuerzo as AR
 import app.MoverArchivos as MA
 import app.Limpieza as LIMP
-from app.Configuraciones import nombre_carpeta_csv, nombre_archivo_base_completa
+from app.Configuraciones import (
+    nombre_carpeta_csv_nomivac,
+    nombre_archivo_base_completa,
+    nombre_carpeta_csv_smis,
+    nombre_archivo_csv_smis,
+)
 
 
 def creditos():
@@ -20,7 +25,9 @@ def consultarExistenciaDeBaseDeDatosCompletaCOVID(
     nombre_archivo_base_completa=nombre_archivo_base_completa,
 ):
     # Se obtiene la ruta a la carpeta CSV
-    ruta_carpeta_csv = PL.generar_ruta_carpeta_csv(carpeta_csv=nombre_carpeta_csv)
+    ruta_carpeta_csv = PL.generar_ruta_carpeta_csv(
+        carpeta_csv=nombre_carpeta_csv_nomivac
+    )
     # Se guarda en es_windows True en caso de que sea Windows el sistema operativo en donde se ejecuta el programa
     es_windows = PL.sistema_actual()
     # Por defecto, dado que en el contexto que se ejecuta el programa Siempre se trabaja con Windows, creo la ruta por defecto para Windows
@@ -234,3 +241,18 @@ def generarTercerReporte(
         csvfile.write("\n")
 
         csvfile.write(creditos())
+
+
+def analizar_base_smis(
+    carpeta_csv_smis: str = nombre_carpeta_csv_smis,
+    base_smis: str = nombre_archivo_csv_smis,
+):
+    es_windows = PL.sistema_actual()
+    if es_windows:
+        path = f"{carpeta_csv_smis}\\{base_smis}"
+        data = PL.read_csv(path)
+        print(data)
+    else:
+        path = f"{carpeta_csv_smis}/{base_smis}"
+        data = PL.read_csv(path)
+        print(data)
