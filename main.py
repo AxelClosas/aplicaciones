@@ -1,8 +1,8 @@
 # Se importan los modulos necesarios para ejecutar los principales procesos del Programa
-import app.ProcesosLogica as PL
-import app.LogicaNegocio as LN
-from app.AnalisisDistribucion import AnalisisDistribucion
-from app.Distribucion import test
+import app.FuncionesLogicaCSV as FL
+import app.nomivac.LogicaAnalisisNomivac as LN
+from app.smis.LogicaAnalisisDeDistribucion import AnalisisDistribucion
+from app.smis.Distribucion import test
 import time
 from menu import menu
 from datetime import date

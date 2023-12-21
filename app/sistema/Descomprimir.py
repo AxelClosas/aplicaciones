@@ -2,7 +2,7 @@ from app.Configuraciones import (
     nombre_archivo_comprimido_principal,
     nombre_carpeta_csv_nomivac,
 )
-import app.ProcesosLogica as PL
+import app.FuncionesLogicaCSV as PL
 import zipfile
 import os
 

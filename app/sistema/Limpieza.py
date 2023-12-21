@@ -1,4 +1,4 @@
-import app.ProcesosLogica as PL
+import app.FuncionesLogicaCSV as PL
 import os
 from app.Configuraciones import nombre_carpeta_csv_nomivac
 

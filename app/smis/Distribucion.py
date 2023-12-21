@@ -1,5 +1,5 @@
 from app.Configuraciones import nombre_carpeta_csv_smis, nombre_archivo_csv_smis
-import app.ProcesosLogica as PL
+import app.FuncionesLogicaCSV as FL
 from datetime import date
 
 
@@ -9,8 +9,8 @@ class Distribucion:
         self.nombre_archivo_csv_smis = nombre_archivo_csv_smis
 
     def obtener_datos(self):
-        carpeta_csv_smis = PL.generar_ruta_carpeta_csv(self.nombre_carpeta_csv_smis)
-        data = PL.read_csv(f"{carpeta_csv_smis}/{self.nombre_archivo_csv_smis}")
+        carpeta_csv_smis = FL.generar_ruta_carpeta_csv(self.nombre_carpeta_csv_smis)
+        data = FL.read_csv(f"{carpeta_csv_smis}/{self.nombre_archivo_csv_smis}")
         return data
 
     def transformar_datos(self):
@@ -115,7 +115,7 @@ class Distribucion:
         def transformar_fecha_entrega(item):
             item_copia = item.copy()
             fecha_entrega = str(item_copia["Fecha entrega"])
-            dia, mes, anio = fecha_entrega.split("/")
+            dia, mes, anio = fecha_entrega.sFLit("/")
             dia, mes, anio = int(dia), int(mes), int(anio)
 
             item_copia["Fecha entrega"] = date(anio, mes, dia)

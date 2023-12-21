@@ -1,26 +1,13 @@
-# Se importan los modulos necesarios
-import app.ProcesosLogica as PL
-import app.Aplicaciones as APL
-import app.Descomprimir as Des
-import app.ProcesarDatosDeCatamarca as PDC
+import app.nomivac.Aplicaciones as APL
+import app.nomivac.ProcesarDatosDeCatamarca as PDC
+import app.nomivac.AnalisisAplicaciones as AP
+import app.nomivac.AnalisisRefuerzo as AR
+from app.Configuraciones import nombre_carpeta_csv_nomivac, nombre_archivo_base_completa
+import app.FuncionesLogicaCSV as PL
 import os
-import app.AnalisisAplicaciones as AP
-import app.AnalisisRefuerzo as AR
-import app.MoverArchivos as MA
-import app.Limpieza as LIMP
-from app.Configuraciones import (
-    nombre_carpeta_csv_nomivac,
-    nombre_archivo_base_completa,
-    nombre_carpeta_csv_smis,
-    nombre_archivo_csv_smis,
-)
+from app.Configuraciones import creditos
 
 
-def creditos():
-    return "Programa creado por: Axel Closas Agüero"
-
-
-# Proceso para consultar la existencia de la Base de Datos
 def consultarExistenciaDeBaseDeDatosCompletaCOVID(
     nombre_archivo_base_completa=nombre_archivo_base_completa,
 ):
@@ -51,27 +38,6 @@ def consultarExistenciaDeBaseDeDatosCompletaCOVID(
     return base_existe, ruta_completa_base_covid
 
 
-# Proceso para descomprimir el archivo CATAMARCA.zip
-def desempaquetadoDeComprimidoZIP():
-    # Instanciamos las clases necesarias para ejecutar la lógica
-    descompresor = Des.Descomprimir()
-    mover_archivos = MA.MoverArchivos()
-    limpieza = LIMP.Limpieza()
-    # Ejecutamos el metodo descomprimir el objeto descompresor
-    descompresor.descomprimir()
-
-    # Ejecutamos el metodo mover_archivos_csv del objeto mover_archivos
-    print("Moviendo archivos...")
-    mover_archivos.mover_archivos_csv()
-
-    # Ejecutamos el metodo limpieza_de_directorio del objeto limpieza
-    print("Limpiando directorio...")
-    limpieza.limpieza_de_directorio()
-
-    # Eliminamos las instancias para liberar memoria
-    del descompresor, mover_archivos, limpieza
-
-
 # Proceso de creación de la base de datos Completa
 def creacionDeBaseDeDatosCompletaCOVID():
     # Instanciamos la clase Aplicaciones del Modulo Aplicaciones
@@ -97,7 +63,7 @@ def procesoObtenerListaDeVacunasDeCatamarca(lista_de_vacunas_completa: list) -> 
 def generarPrimerReporte(
     lista_completa: list,
     lista_catamarca: list,
-    carpeta_destino="Resultados",
+    carpeta_destino="../Reportes",
     nombre_archivo="Primer_reporte.csv",
 ):
     Ap = AP.AnalisisAplicaciones(lista_completa, lista_catamarca)
@@ -130,7 +96,7 @@ def generarPrimerReporte(
 def generarSegundoReporte(
     lista_completa: list,
     lista_catamarca: list,
-    carpeta_destino="Resultados",
+    carpeta_destino="../Reportes",
     nombre_archivo="Segundo_reporte.csv",
 ):
     Ap = AP.AnalisisAplicaciones(lista_completa, lista_catamarca)
@@ -166,7 +132,7 @@ def generarSegundoReporte(
 def generarTercerReporte(
     lista_completa: list,
     lista_catamarca: list,
-    carpeta_destino="Resultados",
+    carpeta_destino="../Reportes",
     nombre_archivo="Tercer_reporte.csv",
 ):
     Ap = AP.AnalisisAplicaciones(lista_completa, lista_catamarca)
@@ -241,18 +207,3 @@ def generarTercerReporte(
         csvfile.write("\n")
 
         csvfile.write(creditos())
-
-
-def analizar_base_smis(
-    carpeta_csv_smis: str = nombre_carpeta_csv_smis,
-    base_smis: str = nombre_archivo_csv_smis,
-):
-    es_windows = PL.sistema_actual()
-    if es_windows:
-        path = f"{carpeta_csv_smis}\\{base_smis}"
-        data = PL.read_csv(path)
-        print(data)
-    else:
-        path = f"{carpeta_csv_smis}/{base_smis}"
-        data = PL.read_csv(path)
-        print(data)
