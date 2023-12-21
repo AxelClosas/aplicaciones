@@ -49,3 +49,25 @@ class AnalisisDistribucion:
 
     def filtrar_lote_vacuna(self, movimientos: list, lote: str) -> list:
         return list(filter(lambda item: item["Lote origen"] == lote, movimientos))
+
+    def obtener_el_total_distribuido_por_Vacuna_a_cada_institucion(
+        self,
+        movimientos: list,
+    ) -> list:
+        vacuna_por_institucion = {
+            "Instituciones": {
+                "Vacunatorio Central": {
+                    "Vacunas": {
+                        "Moderna": 500,
+                        "Sinopharm": 300,
+                    }
+                }
+            }
+        }
+
+        vacuna_por_institucion = {}
+        for item in movimientos:
+            if item["Institución origen"] in vacuna_por_institucion.keys():
+                pass
+            else:
+                vacuna_por_institucion[item["Institución origen"]] = {}

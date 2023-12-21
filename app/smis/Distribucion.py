@@ -115,7 +115,7 @@ class Distribucion:
         def transformar_fecha_entrega(item):
             item_copia = item.copy()
             fecha_entrega = str(item_copia["Fecha entrega"])
-            dia, mes, anio = fecha_entrega.sFLit("/")
+            dia, mes, anio = fecha_entrega.split("/")
             dia, mes, anio = int(dia), int(mes), int(anio)
 
             item_copia["Fecha entrega"] = date(anio, mes, dia)

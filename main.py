@@ -95,7 +95,11 @@ def run():
 
     print(analisis.retornar_cantidad(fecha_entrega_2023))
     print(analisis.sumar(fecha_entrega_2023))
-
+    print(
+        analisis.obtener_el_total_distribuido_por_Vacuna_a_cada_institucion(
+            fecha_entrega_2023
+        )
+    )
     # Cantidad distribuidas por vacuna
 
     vacunas_distribuidas = {}
