@@ -54,20 +54,63 @@ class AnalisisDistribucion:
         self,
         movimientos: list,
     ) -> list:
-        vacuna_por_institucion = {
-            "Instituciones": {
-                "Vacunatorio Central": {
-                    "Vacunas": {
-                        "Moderna": 500,
-                        "Sinopharm": 300,
-                    }
-                }
-            }
-        }
+        # vacuna_por_institucion = [
+        #     {
+        #         "Institución destino": "Vacunatorio Central",
+        #         "Vacunas": {
+        #             "Moderna": 400,
+        #             "Sinopharm": 300,
+        #         },
+        #         "Total distribuido": Sumatoria de salidasd
+        #     },
+        #     {
+        #         "Institución destino": "Sanidad Municipal",
+        #         "Vacunas": {
+        #             "Moderna": 400,
+        #             "Sinopharm": 300,
+        #         },
+        #         "Total distribuido": Sumatoria de salidasd
+        #     },
+        #     {
+        #         "Institución destino": "Villa Dolores",
+        #         "Vacunas": {
+        #             "Moderna": 400,
+        #             "Sinopharm": 300,
+        #         },
+        #         "Total distribuido": Sumatoria de salidasd
+        #     },
+        # ]
+        instituciones = {item["Institución destino"] for item in movimientos}
+        vacunas_por_institucion = []
+        for institucion in instituciones:
+            vacunas_por_institucion.append(
+                {"Institución destino": institucion, "Vacunas": {}}
+            )
 
-        vacuna_por_institucion = {}
-        for item in movimientos:
-            if item["Institución origen"] in vacuna_por_institucion.keys():
-                pass
-            else:
-                vacuna_por_institucion[item["Institución origen"]] = {}
+        for mov in movimientos:
+            for item in vacunas_por_institucion:
+                if mov["Institución destino"] == item["Institución destino"]:
+                    item["Código institución destino"] = mov[
+                        "Código institución destino"
+                    ]
+                    if mov["Producto origen"] in item["Vacunas"].keys():
+                        item["Vacunas"][mov["Producto origen"]] += mov[
+                            "Cantidad origen"
+                        ]
+                    else:
+                        item["Vacunas"][mov["Producto origen"]] = mov["Cantidad origen"]
+
+        for item in vacunas_por_institucion:
+            item["Total distribuido"] = reduce(
+                lambda x, y: x + y, list(item["Vacunas"].values())
+            )
+        vacunas_por_institucion.append(
+            {
+                "Total distribuido": reduce(
+                    lambda x, y: x + y,
+                    [item["Total distribuido"] for item in vacunas_por_institucion],
+                )
+            }
+        )
+
+        return vacunas_por_institucion
