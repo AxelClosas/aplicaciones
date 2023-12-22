@@ -9,6 +9,9 @@ nombre_archivo_csv_smis = "Base_SMIS.csv"
 nombre_archivo_comprimido_principal = "CATAMARCA.zip"
 nombre_archivo_base_completa = "BaseCompletaCOVID.csv"
 
+# Variables para SMIS
+cod_institucion_pai_catamarca = 12
+
 
 def creditos():
     return "Programa creado por: Axel Closas Agüero"

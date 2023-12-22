@@ -1,116 +1,49 @@
-from functools import reduce
+from app.smis.AnalisisDistribucion import AnalisisDistribucion
+from app.smis.Distribucion import Distribucion
+from app.Configuraciones import cod_institucion_pai_catamarca
+from datetime import date
 
 
-class AnalisisDistribucion:
-    def __init__(self, movimientos):
-        self.distribuidas = movimientos
+def proceso_filtrar_origen_paicatamarca_a_instituciones() -> list:
+    # Retorna una lista de diccionarios
+    # [
+    #     {
+    #         "Código institución destino": "Código de institución de tipo Entero",
+    #         "Institución destino": "Nombre de Institución",
+    #         "Vacunas": {
+    #             "Moderna": 300,
+    #             "Sinopharm": 500,
+    #             ...
+    #         },
+    #         "Total distribuidas": 800
+    #     }
+    # ]
+    # Se crea una instancia de Distribucion
+    distribucion = Distribucion()
+    # Almaceno los movimientos regulares
+    movimientos_regulares = distribucion.retornar_movimientos_regulares()
+    # Se Crea una instancia de AnalisisDistribucion para trabajar
+    analisis = AnalisisDistribucion(movimientos=movimientos_regulares)
 
-    def filtrar_institucion_origen(self, cod_institucion: int) -> list:
-        return list(
-            filter(
-                lambda item: item["Código institución origen"] == cod_institucion,
-                self.distribuidas,
-            )
-        )
+    # Filtramos por el Código de la institución Origen. El de Pai Catamarca es el 12
+    mov_origen_pai_catamarca = analisis.filtrar_institucion_origen(
+        cod_institucion_pai_catamarca
+    )
 
-    def filtrar_institucion_destino(self, cod_institucion: int) -> list:
-        return list(
-            filter(
-                lambda item: item["Código institución destino"] == cod_institucion,
-                self.distribuidas,
-            )
-        )
+    # Filtramos por el rango de todo 2023
+    fecha_entrega_2023 = analisis.filtrar_por_fecha_entrega(
+        movimientos=mov_origen_pai_catamarca,
+        fecha_minima=date(2023, 1, 1),
+        fecha_maxima=date(2023, 12, 31),
+    )
+    # Se obtiene el movimiento mediante el nro_remito con fecha incorrecta en SISA - Está cargando en Inventario interno con fecha correcta de 2023
+    remito_2200 = analisis.retornar_registro_nro_remito("2200")
+    # Se lo agrega a la lista de movimientos
+    fecha_entrega_2023.append(remito_2200)
 
-    def filtrar_por_fecha_entrega(
-        self, movimientos: list, fecha_minima, fecha_maxima
-    ) -> list:
-        return list(
-            filter(
-                lambda item: fecha_minima <= item["Fecha entrega"] <= fecha_maxima,
-                movimientos,
-            )
-        )
+    # Pasamos como argumento la lista final para el analisis
 
-    def filtrar_vacuna(self, movimientos: list, vacuna: str) -> list:
-        return list(filter(lambda item: item["Producto origen"] == vacuna, movimientos))
-
-    def sumar(self, movimientos: list):
-        cantidades = [int(item["Cantidad origen"]) for item in movimientos]
-        return reduce(lambda x, y: x + y, cantidades)
-
-    def retornar_cantidad(self, movimientos: list):
-        return len(movimientos)
-
-    def retornar_registro_nro_remito(self, nro_remito: str):
-        registro = list(
-            filter(lambda item: nro_remito in item["Nro. remito"], self.distribuidas)
-        )
-        return registro[0]
-
-    def filtrar_lote_vacuna(self, movimientos: list, lote: str) -> list:
-        return list(filter(lambda item: item["Lote origen"] == lote, movimientos))
-
-    def obtener_el_total_distribuido_por_Vacuna_a_cada_institucion(
-        self,
-        movimientos: list,
-    ) -> list:
-        # vacuna_por_institucion = [
-        #     {
-        #         "Institución destino": "Vacunatorio Central",
-        #         "Vacunas": {
-        #             "Moderna": 400,
-        #             "Sinopharm": 300,
-        #         },
-        #         "Total distribuido": Sumatoria de salidasd
-        #     },
-        #     {
-        #         "Institución destino": "Sanidad Municipal",
-        #         "Vacunas": {
-        #             "Moderna": 400,
-        #             "Sinopharm": 300,
-        #         },
-        #         "Total distribuido": Sumatoria de salidasd
-        #     },
-        #     {
-        #         "Institución destino": "Villa Dolores",
-        #         "Vacunas": {
-        #             "Moderna": 400,
-        #             "Sinopharm": 300,
-        #         },
-        #         "Total distribuido": Sumatoria de salidasd
-        #     },
-        # ]
-        instituciones = {item["Institución destino"] for item in movimientos}
-        vacunas_por_institucion = []
-        for institucion in instituciones:
-            vacunas_por_institucion.append(
-                {"Institución destino": institucion, "Vacunas": {}}
-            )
-
-        for mov in movimientos:
-            for item in vacunas_por_institucion:
-                if mov["Institución destino"] == item["Institución destino"]:
-                    item["Código institución destino"] = mov[
-                        "Código institución destino"
-                    ]
-                    if mov["Producto origen"] in item["Vacunas"].keys():
-                        item["Vacunas"][mov["Producto origen"]] += mov[
-                            "Cantidad origen"
-                        ]
-                    else:
-                        item["Vacunas"][mov["Producto origen"]] = mov["Cantidad origen"]
-
-        for item in vacunas_por_institucion:
-            item["Total distribuido"] = reduce(
-                lambda x, y: x + y, list(item["Vacunas"].values())
-            )
-        vacunas_por_institucion.append(
-            {
-                "Total distribuido": reduce(
-                    lambda x, y: x + y,
-                    [item["Total distribuido"] for item in vacunas_por_institucion],
-                )
-            }
-        )
-
-        return vacunas_por_institucion
+    resultado = analisis.obtener_el_total_distribuido_por_Vacuna_a_cada_institucion(
+        fecha_entrega_2023
+    )
+    return resultado

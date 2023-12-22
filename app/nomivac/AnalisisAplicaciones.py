@@ -3,24 +3,24 @@ import app.FuncionesLogicaCSV as FL
 
 # [1,2,3,4,5,6]
 # ["axel" => "closas" ]
-class AnalisisAFLicaciones:
+class AnalisisAplicaciones:
     def __init__(
         self, lista_de_vacunas_comFLeta: list, lista_de_vacunas_catamarca: list
     ):
         self.lista_de_vacunas_comFLeta = lista_de_vacunas_comFLeta
         self.lista_de_vacunas_catamarca = lista_de_vacunas_catamarca
 
-    def total_aFLicaciones(self) -> int:
+    def total_aplicaciones(self) -> int:
         return len(self.lista_de_vacunas_comFLeta)
 
-    def total_aFLicaciones_catamarca(self) -> int:
+    def total_aplicaciones_catamarca(self) -> int:
         return len(self.lista_de_vacunas_catamarca)
 
-    def total_aFLicaciones_por_departamento(self) -> dict:
+    def total_aplicaciones_por_departamento(self) -> dict:
         deptos = FL.obtener_id_departamentos_desde_archivo()
         frecuencia = {}
         resultado = {}
-        print("Analizando aFLicaciones por id de departamento...")
+        print("Analizando aplicaciones por id de departamento...")
         for item in self.lista_de_vacunas_catamarca:
             if int(item["ID_DEPTO_DOMICILIO"]) in frecuencia.keys():
                 frecuencia[int(item["ID_DEPTO_DOMICILIO"])] += 1
@@ -34,7 +34,7 @@ class AnalisisAFLicaciones:
         }
         return resultado
 
-    def total_aFLicaciones_por_vacuna(self) -> dict:
+    def total_aplicaciones_por_vacuna(self) -> dict:
         frecuencia = {}
         for item in self.lista_de_vacunas_comFLeta:
             if item["VACUNA"] in frecuencia.keys():
@@ -43,7 +43,7 @@ class AnalisisAFLicaciones:
                 frecuencia[item["VACUNA"]] = 1
         return frecuencia
 
-    def total_aFLicaciones_por_vacuna_catamarca(self) -> dict:
+    def total_aplicaciones_por_vacuna_catamarca(self) -> dict:
         frecuencia = {}
         for item in self.lista_de_vacunas_catamarca:
             if item["VACUNA"] in frecuencia.keys():
