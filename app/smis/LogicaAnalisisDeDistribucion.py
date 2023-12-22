@@ -1,6 +1,10 @@
 from app.smis.AnalisisDistribucion import AnalisisDistribucion
 from app.smis.Distribucion import Distribucion
-from app.Configuraciones import cod_institucion_pai_catamarca
+from app.Configuraciones import (
+    cod_institucion_pai_catamarca,
+    nombre_carpeta_csv_smis,
+    nombre_archivo_csv_smis,
+)
 from datetime import date
 
 
@@ -19,7 +23,11 @@ def proceso_filtrar_origen_paicatamarca_a_instituciones() -> list:
     #     }
     # ]
     # Se crea una instancia de Distribucion
-    distribucion = Distribucion()
+    distribucion = Distribucion(
+        nombre_carpeta_csv_smis=nombre_carpeta_csv_smis,
+        nombre_archivo_csv_smis=nombre_archivo_csv_smis,
+    )
+
     # Almaceno los movimientos regulares
     movimientos_regulares = distribucion.retornar_movimientos_regulares()
     # Se Crea una instancia de AnalisisDistribucion para trabajar

@@ -1,6 +1,15 @@
 import app.nomivac.AnalisisAplicaciones as AP
 import app.nomivac.AnalisisRefuerzo as AR
-from app.Configuraciones import creditos
+from app.smis.LogicaAnalisisDeDistribucion import (
+    proceso_filtrar_origen_paicatamarca_a_instituciones,
+)
+import csv
+
+from app.Configuraciones import (
+    creditos,
+    nombre_carpeta_csv_smis,
+    nombre_archivo_csv_smis,
+)
 
 
 def generarPrimerReporte(
@@ -44,33 +53,29 @@ def generarSegundoReporte(
     nombre_archivo="Segundo_reporte.csv",
 ):
     Ap = AP.AnalisisAplicaciones(lista_completa, lista_catamarca)
+    resultado_distribuidas = proceso_filtrar_origen_paicatamarca_a_instituciones()
 
-    total_general = Ap.total_aplicaciones_por_vacuna()
-    total_catamarca = Ap.total_aplicaciones_por_vacuna_catamarca()
+    resultado_aplicaciones_por_departamento = (
+        Ap.total_aplicaciones_por_vacuna_y_por_departamento()
+    )
+
     with open(
         f"{carpeta_destino}/{nombre_archivo}", "w", encoding="latin-1", newline=""
     ) as csvfile:
-        csvfile.write("Total General")
-        csvfile.write("\n")
-        csvfile.write("Vacuna;Cantidad")
-        csvfile.write("\n")
-        for key, value in total_general.items():
-            csvfile.write(f"{key};{value}")
-            csvfile.write("\n")
+        reporte = csv.writer(csvfile, delimiter=";")
+        reporte.writerow(["Departamento", "Vacunas", "Cantidad"])
+        for depto in resultado_aplicaciones_por_departamento:
+            for vacuna, cantidad in depto["Aplicaciones"].items():
+                reporte.writerow([depto["DEPTO_ESTABLECIMIENTO"], vacuna, cantidad])
 
-        csvfile.write("\n")
-        csvfile.write("\n")
+        reporte.writerow(["\n", "\n", "\n"])
 
-        csvfile.write("Total Catamarca")
-        csvfile.write("\n")
-        csvfile.write("Vacuna;Cantidad")
-        csvfile.write("\n")
-        for key, value in total_catamarca.items():
-            csvfile.write(f"{key};{value}")
-            csvfile.write("\n")
+        reporte.writerow(["Institución", "Vacuna", "Cantidad"])
 
-        csvfile.write("\n")
-        csvfile.write(creditos())
+        for depto_dist in resultado_distribuidas:
+            for vacuna, cantidad in depto_dist["Vacunas"].items():
+                print(vacuna, cantidad)
+                reporte.writerow([depto_dist["Institución destino"], vacuna, cantidad])
 
 
 def generarTercerReporte(

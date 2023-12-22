@@ -2,7 +2,7 @@ from app.Configuraciones import (
     nombre_archivo_comprimido_principal,
     nombre_carpeta_csv_nomivac,
 )
-import app.FuncionesLogicaCSV as PL
+import app.FuncionesLogicaCSV as FL
 import zipfile
 import os
 
@@ -25,8 +25,8 @@ class Descomprimir:
             if self.comprobar_existencia_de_archivo():
                 nombre_de_archivos_comprimidos = []
                 # Genera ruta de carpeta CSV si es Windows o Linux
-                es_windows = PL.sistema_actual()
-                ruta_carpeta_csv = PL.generar_ruta_carpeta_csv(self.carpeta_csv)
+                es_windows = FL.sistema_actual()
+                ruta_carpeta_csv = FL.generar_ruta_carpeta_csv(self.carpeta_csv)
                 # Descomprimir primer archivo "CATAMARCA.zip"
                 if es_windows:
                     ruta_comprimido = f"{ruta_carpeta_csv}\\{nombre_comprimido}"

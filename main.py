@@ -1,8 +1,9 @@
 # Se importan los modulos necesarios para ejecutar los principales procesos del Programa
 import app.FuncionesLogicaCSV
 import app.nomivac.LogicaAnalisisNomivac as LN
+import app.sistema.LogicaProcesosDeSistema as LPSis
 import app.reportes.Reportes as Reportes
-
+from app.nomivac.AnalisisAplicaciones import AnalisisAplicaciones
 
 import time
 from menu import menu
@@ -54,6 +55,7 @@ def run():
                 Reportes.generarTercerReporte(
                     lista_de_vacunas_completa, lista_de_vacunas_catamarca
                 )
+
             # En caso de ingresar una opción no valida, se imprimé el mensaje y se corta la ejecución del Script
             case _:
                 print(
@@ -67,7 +69,7 @@ def run():
         )
         time.sleep(2)
         # Se ejecuta el proceso de descomprimir el archivo descargado desde la nube
-        LN.desempaquetadoDeComprimidoZIP()
+        LPSis.desempaquetadoDeComprimidoZIP()
 
         # Terminado el proceso de desempaquetado. Se inicia la ejecución del proceso de creación de la Base de Datos
         print("Uniendo archivos para generar base de datos completa")

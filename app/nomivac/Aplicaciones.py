@@ -1,4 +1,5 @@
 import app.FuncionesLogicaCSV as PL
+from app.Configuraciones import nombre_carpeta_csv_nomivac
 import csv
 import os
 
@@ -6,7 +7,7 @@ import os
 # Se crea la clase aplicaciones
 class Aplicaciones:
     # Definimos el constructor de nuestro programa
-    def __init__(self, carpeta_csv="CSV"):
+    def __init__(self, carpeta_csv=nombre_carpeta_csv_nomivac):
         self.carpeta_csv = carpeta_csv
 
     def obtener_nombres(self) -> list:
@@ -49,6 +50,11 @@ class Aplicaciones:
     def transformar_datos(self) -> list:
         def cambiar_nombre(item) -> dict:
             cambiar_nombre = {
+                "Astrazeneca": "AstraZeneca ChAdOx1 S recombinante",
+                "Cansino": "Cansino Ad5 nCoV",
+                "Covishield": "COVISHIELD ChAdOx1nCoV COVID 19",
+                "Sinopharm": "Sinopharm Vacuna SARSCOV 2 inactivada",
+                "Sputnik V": "Sputnik V COVID19 Instituto Gamaleya",
                 "Moderna": "Moderna ARNm 020 mg mL",
                 "Moderna Bivariante": "Moderna Bivariante BA 4 5",
                 "Pfizer": "Pfizer BioNTech Comirnaty",
@@ -64,7 +70,7 @@ class Aplicaciones:
         def obtener(item) -> dict:
             n_dict = {
                 # Datos personales
-                "ID": item["ID_CMDB_PERSONA"],
+                "ID": int(item["ID_CMDB_PERSONA"]),
                 "NRO_DOC": item["NRO_DOC"],
                 "FECHA_NACIMIENTO": item["FECHA_NACIMIENTO"],
                 # Datos de domicilio
@@ -75,7 +81,9 @@ class Aplicaciones:
                 "ID_LOCALIDAD_DOMICILIO": item["ID_LOCALIDAD_DOMICILIO"],
                 "LOCALIDAD_DOMICILIO": item["LOCALIDAD_DOMICILIO"],
                 # Datos de establecimiento de aplicación
-                "ID_LOCALIDAD_ESTABLECIMIENTO": item["ID_LOCALIDAD_ESTABLECIMIENTO"],
+                "ID_LOCALIDAD_ESTABLECIMIENTO": int(
+                    item["ID_LOCALIDAD_ESTABLECIMIENTO"]
+                ),
                 "LOCALIDAD_ESTABLECIMIENTO": item["LOCALIDAD_ESTABLECIMIENTO"],
                 "COD_ESTABLECIMIENTO": item["COD_ESTABLECIMIENTO"],
                 "ESTABLECIMIENTO": item["ESTABLECIMIENTO"],

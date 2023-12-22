@@ -100,17 +100,17 @@ class AnalisisDistribucion:
                     else:
                         item["Vacunas"][mov["Producto origen"]] = mov["Cantidad origen"]
 
-        for item in vacunas_por_institucion:
-            item["Total distribuido"] = reduce(
-                lambda x, y: x + y, list(item["Vacunas"].values())
-            )
-        vacunas_por_institucion.append(
-            {
-                "Total distribuido": reduce(
-                    lambda x, y: x + y,
-                    [item["Total distribuido"] for item in vacunas_por_institucion],
-                )
-            }
-        )
+        # for item in vacunas_por_institucion:
+        #     item["Total distribuido"] = reduce(
+        #         lambda x, y: x + y, list(item["Vacunas"].values())
+        #     )
+        # vacunas_por_institucion.append(
+        #     {
+        #         "Total distribuido": reduce(
+        #             lambda x, y: x + y,
+        #             [item["Total distribuido"] for item in vacunas_por_institucion],
+        #         )
+        #     }
+        # )
 
         return vacunas_por_institucion

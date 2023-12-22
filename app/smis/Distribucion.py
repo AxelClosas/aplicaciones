@@ -1,4 +1,3 @@
-from app.Configuraciones import nombre_carpeta_csv_smis, nombre_archivo_csv_smis
 import app.FuncionesLogicaCSV as FL
 from datetime import date
 
@@ -50,7 +49,7 @@ class Distribucion:
                 "Covishield": [
                     "CHADOX1 NCOV-19 RECOMBINANTE - Vial 10 DOSIS - SERUM",
                 ],
-                "Sputnik V - C1": [
+                "Sputnik V": [
                     "GAM-COVID-VAC C1 - Vial 5 DOSIS - RICHMOND",
                     "GAM-COVID-VAC C1 - Vial 2 DOSIS - BIOCAD-PHARM-UFAVITA",
                     "GAM-COVID-VAC C1 - Vial 5 DOSIS - JSC R-PHARM",
@@ -58,8 +57,6 @@ class Distribucion:
                     "GAM-COVID-VAC C1 - Vial 5 DOSIS - JSC GENERIUM",
                     "GAM-COVID-VAC C1 - Vial 5 DOSIS - CJSC LEKKO",
                     "GAM-COVID-VAC C1 - Vial 1 DOSIS - PHARMSTANDARD-UFAVITA",
-                ],
-                "Sputnik V - C2": [
                     "GAM-COVID-VAC C2 - Vial 5 DOSIS - RICHMOND",
                     "GAM-COVID-VAC C2 - Vial 2 DOSIS - GENERIUM-PHARM-UFAVITA",
                     "GAM-COVID-VAC C2 - Vial 5 DOSIS - JSC BIOCAD",
@@ -132,8 +129,7 @@ class Distribucion:
             vacunas = [
                 "Astrazeneca",
                 "Covishield",
-                "Sputnik V - C1",
-                "Sputnik V - C2",
+                "Sputnik V",
                 "Sputnik Light",
                 "Sinopharm",
                 "Cansino",
@@ -159,6 +155,3 @@ class Distribucion:
     def retornar_movimientos_internos(self):
         data = self.obtener_vacunas()
         return list(filter(lambda item: item["Tipo movimiento"] == "Interno", data))
-
-
-test = Distribucion(nombre_carpeta_csv_smis, nombre_archivo_csv_smis)
