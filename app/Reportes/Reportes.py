@@ -55,8 +55,8 @@ def generarSegundoReporte(
     Ap = AP.AnalisisAplicaciones(lista_completa, lista_catamarca)
     resultado_distribuidas = proceso_filtrar_origen_paicatamarca_a_instituciones()
 
-    resultado_aplicaciones_por_departamento = (
-        Ap.total_aplicaciones_por_vacuna_y_por_departamento()
+    resultado_aplicaciones_por_departamento = Ap.total_aplicaciones_por_vacuna_y_por_departamento_en_un_rango_de_fecha_determinado(
+        "01/01/2023", "31/12/2023"
     )
 
     with open(
@@ -74,7 +74,7 @@ def generarSegundoReporte(
 
         for depto_dist in resultado_distribuidas:
             for vacuna, cantidad in depto_dist["Vacunas"].items():
-                print(vacuna, cantidad)
+                # print(vacuna, cantidad)
                 reporte.writerow([depto_dist["Institución destino"], vacuna, cantidad])
 
 

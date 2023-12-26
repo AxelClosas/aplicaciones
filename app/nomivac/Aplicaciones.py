@@ -2,6 +2,7 @@ import app.FuncionesLogicaCSV as PL
 from app.Configuraciones import nombre_carpeta_csv_nomivac
 import csv
 import os
+from datetime import datetime, date
 
 
 # Se crea la clase aplicaciones

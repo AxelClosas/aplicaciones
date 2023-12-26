@@ -1,5 +1,6 @@
 import app.FuncionesLogicaCSV as FL
 from functools import reduce
+from datetime import datetime, date
 
 
 # [1,2,3,4,5,6]
@@ -145,7 +146,25 @@ class AnalisisAplicaciones:
         )
         return filtro_adicional_completa, filtro_adicional_catamarca
 
-    def total_aplicaciones_por_vacuna_y_por_departamento(self) -> list:
+    def filtrar_por_fecha_de_aplicacion(
+        self, movimientos: list, fecha_minima: str, fecha_maxima: str
+    ):
+        formato = "%d/%m/%Y"
+        fecha_minima = datetime.strptime(fecha_minima, formato)
+        fecha_maxima = datetime.strptime(fecha_maxima, formato)
+
+        return list(
+            filter(
+                lambda item: fecha_minima
+                <= datetime.strptime(item["FECHA_APLICACION"], formato)
+                <= fecha_maxima,
+                movimientos,
+            )
+        )
+
+    def total_aplicaciones_por_vacuna_y_por_departamento_en_un_rango_de_fecha_determinado(
+        self, fecha_minima: str, fecha_maxima: str
+    ) -> list:
         # Busco crear la siguiente estructura
         # [
         #     {
@@ -170,8 +189,10 @@ class AnalisisAplicaciones:
             }
             for key, value in id_departamentos.items()
         ]
-
-        for item in self.lista_de_vacunas_completa:
+        movimientos = self.filtrar_por_fecha_de_aplicacion(
+            self.lista_de_vacunas_completa, fecha_minima, fecha_maxima
+        )
+        for item in movimientos:
             for depto in aplicaciones_departamentos_completa:
                 if (
                     int(item["ID_DEPTO_ESTABLECIMIENTO"])
