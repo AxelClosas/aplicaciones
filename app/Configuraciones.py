@@ -12,6 +12,11 @@ nombre_archivo_base_completa = "BaseCompletaCOVID.csv"
 # Variables para SMIS
 cod_institucion_pai_catamarca = 12
 
+# Programas sanitarios
+programa_covid = "COVID"
+programa_dicei = "DiCEI"
+programa_epidemio = "Direccion de epidemiologia"
+
 
 def creditos():
     return "Programa creado por: Axel Closas Agüero"
