@@ -11,19 +11,21 @@ from datetime import datetime
 
 
 def proceso_filtrar_origen_paicatamarca_a_instituciones() -> list:
-    # Retorna una lista de diccionarios
-    # [
-    #     {
-    #         "Código institución destino": "Código de institución de tipo Entero",
-    #         "Institución destino": "Nombre de Institución",
-    #         "Vacunas": {
-    #             "Moderna": 300,
-    #             "Sinopharm": 500,
-    #             ...
-    #         },
-    #         "Total distribuidas": 800
-    #     }
-    # ]
+    """
+    Retorna una lista de diccionarios
+    [
+        {
+            "Código institución destino": "Código de institución de tipo Entero",
+            "Institución destino": "Nombre de Institución",
+            "Vacunas": {
+                "Moderna": 300,
+                "Sinopharm": 500,
+                ...
+            },
+            "Total distribuidas": 800
+        }
+    ]
+    """
     # Se crea una instancia de Distribucion
     distribucion = Distribucion(
         nombre_carpeta_csv_smis=nombre_carpeta_csv_smis,
