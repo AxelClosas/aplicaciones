@@ -1,4 +1,4 @@
-from app.Configuraciones import diccionario_de_vacunas
+from app.Configuraciones import diccionario_de_vacunas_covid, lista_de_vacunas_covid
 
 
 class Covid:
@@ -11,31 +11,17 @@ class Covid:
     # Procesamos los datos para obtener los movimientos estandarizados y solamente de vacunas
     def procesar_datos(self) -> list:
         def cambiar_nombre(item) -> dict:
-            global diccionario_de_vacunas
-            nombres_con_variantes = diccionario_de_vacunas.copy()
+            nombres_con_variantes = diccionario_de_vacunas_covid.copy()
 
             for nombre, nombres_variables in nombres_con_variantes.items():
                 for nombre_variable in nombres_variables:
-                    if nombre_variable in item["Producto origen"]:
+                    if nombre_variable == item["Producto origen"]:
                         item["Producto origen"] = nombre
             return item
 
         # Declaramos la función obtener_vacunas para filtrar unicamente las vacunas
         def obtener_vacunas(item) -> dict:
-            vacunas = [
-                "Astrazeneca",
-                "Covishield",
-                "Sputnik V",
-                "Sputnik Light",
-                "Sinopharm",
-                "Cansino",
-                "Moderna",
-                "Moderna Pediatrica",
-                "Moderna Bivariante",
-                "Pfizer",
-                "Pfizer Pediatrica",
-                "Pfizer Bivariante",
-            ]
+            vacunas = lista_de_vacunas_covid.copy()
             for vacuna in vacunas:
                 if vacuna in item["Producto origen"]:
                     return item
