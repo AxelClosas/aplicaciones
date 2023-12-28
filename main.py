@@ -55,7 +55,9 @@ def run():
                 Reportes.generarTercerReporte(
                     lista_de_vacunas_completa, lista_de_vacunas_catamarca
                 )
-
+            case 4:
+                print("Generando reporte...\n")
+                Reportes.generarCuartoReporte()
             # En caso de ingresar una opción no valida, se imprimé el mensaje y se corta la ejecución del Script
             case _:
                 print(
