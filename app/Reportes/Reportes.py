@@ -1,7 +1,8 @@
 import app.nomivac.AnalisisAplicaciones as AP
 import app.nomivac.AnalisisRefuerzo as AR
 from app.smis.LogicaAnalisisDeDistribucion import (
-    proceso_filtrar_origen_paicatamarca_a_instituciones,
+    proceso_filtrar_origen_paicatamarca_a_instituciones_covid,
+    proceso_filtrar_origen_paicatamarca_a_instituciones_dicei,
 )
 import csv
 
@@ -53,7 +54,7 @@ def generarSegundoReporte(
     nombre_archivo="Segundo_reporte.csv",
 ):
     Ap = AP.AnalisisAplicaciones(lista_completa, lista_catamarca)
-    resultado_distribuidas = proceso_filtrar_origen_paicatamarca_a_instituciones()
+    resultado_distribuidas = proceso_filtrar_origen_paicatamarca_a_instituciones_covid()
 
     resultado_aplicaciones_por_departamento = Ap.total_aplicaciones_por_vacuna_y_por_departamento_en_un_rango_de_fecha_determinado(
         "01/01/2023", "31/12/2023"
@@ -156,3 +157,23 @@ def generarTercerReporte(
         csvfile.write("\n")
 
         csvfile.write(creditos())
+
+
+def generarCuartoReporte(
+    carpeta_destino="Resultados",
+    nombre_archivo="Cuarto_reporte.csv",
+):
+    with open(
+        f"{carpeta_destino}/{nombre_archivo}", "w", encoding="latin-1", newline=""
+    ) as csvfile:
+        resultado_distribuidas = (
+            proceso_filtrar_origen_paicatamarca_a_instituciones_dicei()
+        )
+
+        reporte = csv.writer(csvfile, delimiter=";")
+        reporte.writerow(["Institución", "Vacuna", "Cantidad"])
+
+        for depto_dist in resultado_distribuidas:
+            for vacuna, cantidad in depto_dist["Vacunas"].items():
+                # print(vacuna, cantidad)
+                reporte.writerow([depto_dist["Institución destino"], vacuna, cantidad])
