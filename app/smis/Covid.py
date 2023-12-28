@@ -12,7 +12,7 @@ class Covid:
     def procesar_datos(self) -> list:
         def cambiar_nombre(item) -> dict:
             global diccionario_de_vacunas
-            nombres_con_variantes = diccionario_de_vacunas
+            nombres_con_variantes = diccionario_de_vacunas.copy()
 
             for nombre, nombres_variables in nombres_con_variantes.items():
                 for nombre_variable in nombres_variables:
