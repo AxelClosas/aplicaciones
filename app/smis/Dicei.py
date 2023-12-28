@@ -1,24 +1,23 @@
+from app.Configuraciones import diccionario_de_vacunas_dicei, lista_de_vacunas_dicei
+
+
 class Dicei:
     def __init__(self, movimientos: list):
         self.movimientos = movimientos
 
     def procesar_datos(self) -> list:
         def cambiar_nombre(item) -> dict:
-            cambiar_nombre = {
-                # Diccionario de vacunas con sus diferentes nombres según laboratorio para ser reemplazados
-            }
+            nombres_con_variantes = diccionario_de_vacunas_dicei.copy()
 
-            for nombre, nombres_variables in cambiar_nombre.items():
+            for nombre, nombres_variables in nombres_con_variantes.items():
                 for nombre_variable in nombres_variables:
-                    if nombre_variable in item["Producto origen"]:
+                    if nombre_variable == item["Producto origen"]:
                         item["Producto origen"] = nombre
             return item
 
         # Declaramos la función obtener_vacunas para filtrar unicamente las vacunas
         def obtener_vacunas(item) -> dict:
-            vacunas = [
-                # Lista de vacunas, nombres estandarizados
-            ]
+            vacunas = lista_de_vacunas_dicei.copy()
             for vacuna in vacunas:
                 if vacuna in item["Producto origen"]:
                     return item
