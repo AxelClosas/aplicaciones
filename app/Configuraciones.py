@@ -146,10 +146,13 @@ def retornar_diccionario_de_nombres_para_estandar_dicei() -> dict:
         ],
         "Inmunoglobulina Antirrabica Humana": [
             "INMUNOGLOBULINA ANTIRRABICA HUMANA POLVO PARA INYECTABLE (- ..) - Vial 1 DOSIS - KAMADA",
+            "INMUNOGLOBULINA ANTIRRABICA HUMANA POLVO PARA INYECTABLE (- ..) - Vial 1 DOSIS - CSL BEHRING",
+            "INMUNOGLOBULINA ANTIRRABICA HUMANA SOLUCION PARA INYECCION (300 MCG) - Jeringa prellenada 2 ML - CSL BEHRING",
         ],
         "Inmunoglobulina Antitetanica": [
             "INMUNOGLOBULINA ANTITETANICA SOLUCIÓN INYECTABLE (250 UI/ML) - Jeringa prellenada 1 DOSIS - CSL BEHRING",
             "INMUNOGLOBULINA ANTITETANICA SOLUCIÓN INYECTABLE (250 UI/ML) - Vial 1 DOSIS - GREEN CROSS",
+            "INMUNOGLOBULINA ANTITETANICA SOLUCIÓN INYECTABLE (250 UI/ML) - Jeringa prellenada 1 DOSIS - KEDRION",
         ],
         "Inmunoglobulina Antivaricela Zoster": [
             "INMUNOGLOBULINA ANTIVARICELA ZOSTER SOLUCIÓN INYECTABLE (- ..) - Vial 1 DOSIS - GREEN CROSS"
@@ -157,47 +160,63 @@ def retornar_diccionario_de_nombres_para_estandar_dicei() -> dict:
         "Rotavirus": [
             "ROTAVIRUS - Jeringa prellenada 1 DOSIS - GSK",
         ],
+        "Meningococica B": [
+            "MENINGOCOCICA B - Jeringa prellenada 1 DOSIS - GLAXOSMITHKLINE ARGENTINA"
+        ],
         "Sextuple Acelular": [
             "SEXTUPLE ACELULAR - Frasco 1 DOSIS - SANOFI PASTEUR",
+            "SEXTUPLE ACELULAR POLVO LIOFILIZADO (..) - Jeringa prellenada 1 DOSIS - GSK",
         ],
         "Antirrabica  Humana": [
             "VACUNA ANTIRRABICA  HUMANA POLVO PARA INYECTABLE (2,5 UI) - Vial 1 DOSIS - SERUM",
+            "VACUNA ANTIRRABICA  HUMANA POLVO PARA INYECTABLE (2,5 UI) - Vial 1 DOSIS - SANOFI PASTEUR",
         ],
         "BCG": [
             "VACUNA BCG POLVO PARA INYECTABLE (- ..) - Vial 10 DOSIS - ajvaccines",
             "VACUNA BCG POLVO PARA INYECTABLE (- ..) - Vial 10 DOSIS - SERUM",
+            "VACUNA BCG POLVO PARA INYECTABLE (- ..) - Vial 10 DOSIS - INTERVAX",
         ],
         "Doble Adulto Bacteriana DTA": [
             "VACUNA DOBLE ADULTO BACTERIANA DTA SOLUCIÓN INYECTABLE (0,5 ML) - Vial 10 DOSIS - SERUM",
         ],
         "Doble Viral": [
+            "VACUNA DOBLE VIRAL POLVO PARA INYECTABLE (- ..) - Vial 1 DOSIS - SERUM"
             "VACUNA DOBLE VIRAL POLVO PARA INYECTABLE (- ..) - Vial 10 DOSIS - SERUM",
+            "VACUNA DOBLE VIRAL POLVO PARA INYECTABLE (- ..) - Frasco 10 DOSIS",
         ],
         "Fiebre Amarilla": [
             "VACUNA FIEBRE AMARILLA POLVO PARA INYECTABLE (- ..) - Vial 10 DOSIS - FIOTEC",
             "VACUNA FIEBRE AMARILLA POLVO PARA INYECTABLE (- ..) - Vial 10 DOSIS - SANOFI PASTEUR",
+            "VACUNA FIEBRE AMARILLA POLVO PARA INYECTABLE (- ..) - Vial 5 DOSIS - FIOTEC",
         ],
         "Hepatitis A Adulto": [
             "VACUNA HEPATITIS A ADULTO SUSPENSIÓN INYECTABLE (50/1 UI/ML) - Vial 1 DOSIS - MSD",
+            "VACUNA HEPATITIS A ADULTO SUSPENSIÓN INYECTABLE (50/1 UI/ML) - Vial 1 DOSIS - Sinovac",
         ],
         "Hepatitis A Pediatrica": [
             "VACUNA HEPATITIS A PEDIATRICA SUSPENSIÓN INYECTABLE (720/0.5 UI/ML) - Vial 1 DOSIS - GSK",
         ],
         "Hepatitis B Adulto": [
             "VACUNA HEPATITIS B ADULTO SOLUCIÓN INYECTABLE (- ..) - Vial 10 DOSIS - LG",
+            "VACUNA HEPATITIS B ADULTO SOLUCIÓN INYECTABLE (- ..) - Vial 10 DOSIS - SERUM",
         ],
         "Hepatitis B Pediatrica": [
             "VACUNA HEPATITIS B PEDIATRICA SOLUCIÓN INYECTABLE (0,5 ML) - Vial 1 DOSIS - LG",
             "VACUNA HEPATITIS B PEDIATRICA SOLUCIÓN INYECTABLE (0,5 ML) - Vial 1 DOSIS - SERUM",
+            "VACUNA HEPATITIS B PEDIATRICA SOLUCIÓN INYECTABLE (0,5 ML) - Vial 1 DOSIS - MSD",
         ],
         "Meningococo Conjugada a,c,w-135": [
             "VACUNA MENINGOCOCO CONJUGADA A,C,W-135, Y SOLUCIÓN INYECTABLE (- ..) - Vial 1 DOSIS - GSK",
+            "VACUNA MENINGOCOCO CONJUGADA A,C,W-135, Y SOLUCIÓN INYECTABLE (- ..) - Jeringa prellenada 1 DOSIS - PFIZER",
+            "VACUNA MENINGOCOCO CONJUGADA A,C,W-135, Y SOLUCIÓN INYECTABLE (- ..) - Vial 1 DOSIS - SANOFI PASTEUR",
         ],
         "Pentavalente": [
             "VACUNA PENTAVALENTE SOLUCIÓN INYECTABLE (- ..) - Vial 1 DOSIS - SERUM",
         ],
         "Poliomelitica Inactivada": [
+            "VACUNA POLIOMELITICA INACTIVADA SOLUCIÓN INYECTABLE (- ..) - Vial 1 DOSIS - SANOFI AVENTIS",
             "VACUNA POLIOMELITICA INACTIVADA SOLUCIÓN INYECTABLE (- ..) - Vial 5 DOSIS - Bilthoven Biologicals B.V",
+            "VACUNA POLIOMELITICA INACTIVADA SOLUCIÓN INYECTABLE (- ..) - Vial 10 DOSIS - FIOCRUZ",
         ],
         "Triple Bacteriana Acelular- DPTa": [
             "VACUNA TRIPLE BACTERIANA ACELULAR- DPTa SOLUCIÓN INYECTABLE (0,5 ML) - Frasco 1 DOSIS - SANOFI PASTEUR",
@@ -205,11 +224,13 @@ def retornar_diccionario_de_nombres_para_estandar_dicei() -> dict:
         ],
         "Triple Bacteriana Celular- DPT": [
             "VACUNA TRIPLE BACTERIANA CELULAR- DPT SOLUCIÓN INYECTABLE (0,5 ML) - Vial 10 DOSIS - SERUM",
+            "VACUNA TRIPLE BACTERIANA CELULAR- DPT SOLUCIÓN INYECTABLE (0,5 ML) - Vial 10 DOSIS - PT BIO FARMA",
         ],
         "Triple Viral SRP": [
             "VACUNA TRIPLE VIRAL SRP POLVO PARA INYECTABLE (- ..) - Vial 1 DOSIS - GSK",
             "VACUNA TRIPLE VIRAL SRP POLVO PARA INYECTABLE (- ..) - Vial 1 DOSIS - MSD",
             "VACUNA TRIPLE VIRAL SRP POLVO PARA INYECTABLE (- ..) - Vial 10 DOSIS - FIOCRUZ",
+            "VACUNA TRIPLE VIRAL SRP POLVO PARA INYECTABLE (- ..) - Vial 1 DOSIS - MERCK",
         ],
         "Varicela": [
             "VACUNA VARICELA SOLUCIÓN INYECTABLE (- ..) - Vial 1 DOSIS - MSD",
@@ -252,6 +273,7 @@ def retornar_nombres_de_vacunas_dicei() -> list:
         "Triple Viral SRP",
         "Varicela",
         "VPH",
+        "Meningococica B",
     ]
 
 
