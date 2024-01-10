@@ -54,63 +54,69 @@ class AnalisisDistribucion:
         self,
         movimientos: list,
     ) -> list:
-        # vacuna_por_institucion = [
-        #     {
-        #         "Institución destino": "Vacunatorio Central",
-        #         "Vacunas": {
-        #             "Moderna": 400,
-        #             "Sinopharm": 300,
-        #         },
-        #         "Total distribuido": Sumatoria de salidasd
-        #     },
-        #     {
-        #         "Institución destino": "Sanidad Municipal",
-        #         "Vacunas": {
-        #             "Moderna": 400,
-        #             "Sinopharm": 300,
-        #         },
-        #         "Total distribuido": Sumatoria de salidasd
-        #     },
-        #     {
-        #         "Institución destino": "Villa Dolores",
-        #         "Vacunas": {
-        #             "Moderna": 400,
-        #             "Sinopharm": 300,
-        #         },
-        #         "Total distribuido": Sumatoria de salidasd
-        #     },
-        # ]
+        """
+        vacuna_por_institucion = [
+            {
+                "Institución destino": "Vacunatorio Central",
+                "Vacunas": {
+                    "Moderna": 400,
+                    "Sinopharm": 300,
+                },
+                "Total distribuido": Sumatoria de salidasd
+            },
+            {
+                "Institución destino": "Sanidad Municipal",
+                "Vacunas": {
+                    "Moderna": 400,
+                    "Sinopharm": 300,
+                },
+                "Total distribuido": Sumatoria de salidasd
+            },
+            {
+                "Institución destino": "Villa Dolores",
+                "Vacunas": {
+                    "Moderna": 400,
+                    "Sinopharm": 300,
+                },
+            },
+        ]
+        """
+        # Creo un conjunto (o set) con las instituciones involucradas en los movimientos para evitar duplicados
         instituciones = {item["Institución destino"] for item in movimientos}
+        # vacunas_por_institucion será la lista que contendra los items de las distribuciones
         vacunas_por_institucion = []
+        # Creamos la estructura
+        """
+        vacunas_por_institucion = [
+            {
+                "Institución destino": "Villa Dolores",
+                "Vacunas": {},
+            },
+        ]
+        """
         for institucion in instituciones:
             vacunas_por_institucion.append(
                 {"Institución destino": institucion, "Vacunas": {}}
             )
-
+        # Generamos los datos
+        # Recorremos cada movimiento
         for mov in movimientos:
+            # Recorremos cada item de distribución por cada movimiento
             for item in vacunas_por_institucion:
+                # Si la institución destino del movimiento es igual a la institución destino del item
                 if mov["Institución destino"] == item["Institución destino"]:
+                    # Guardamos el código de institución generando una nueva llave
                     item["Código institución destino"] = mov[
                         "Código institución destino"
                     ]
+                    # Si el producto del movimiento se encuentra en las llaves de las vacunas del item
                     if mov["Producto origen"] in item["Vacunas"].keys():
+                        # Acumulamos la cantidad
                         item["Vacunas"][mov["Producto origen"]] += mov[
                             "Cantidad origen"
                         ]
+                    # Caso contrario, guardamos el primer valor encontrado generando una nueva llave según sea el producto
                     else:
                         item["Vacunas"][mov["Producto origen"]] = mov["Cantidad origen"]
-
-        # for item in vacunas_por_institucion:
-        #     item["Total distribuido"] = reduce(
-        #         lambda x, y: x + y, list(item["Vacunas"].values())
-        #     )
-        # vacunas_por_institucion.append(
-        #     {
-        #         "Total distribuido": reduce(
-        #             lambda x, y: x + y,
-        #             [item["Total distribuido"] for item in vacunas_por_institucion],
-        #         )
-        #     }
-        # )
 
         return vacunas_por_institucion

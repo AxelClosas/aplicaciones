@@ -99,14 +99,14 @@ def proceso_filtrar_origen_paicatamarca_a_instituciones_dicei() -> list:
     mov_origen_pai_catamarca_dicei = analisis_dicei.filtrar_institucion_origen(
         cod_institucion_pai_catamarca
     )
-    fecha_entrega_2023_dicei = analisis_dicei.filtrar_por_fecha_entrega(
+    fecha_entrega_2024_dicei = analisis_dicei.filtrar_por_fecha_entrega(
         movimientos=mov_origen_pai_catamarca_dicei,
-        fecha_minima=datetime.strptime("01/01/2023", "%d/%m/%Y"),
-        fecha_maxima=datetime.strptime("31/12/2023", "%d/%m/%Y"),
+        fecha_minima=datetime.strptime("01/01/2024", "%d/%m/%Y"),
+        fecha_maxima=datetime.strptime("31/12/2024", "%d/%m/%Y"),
     )
     resultado_dicei = (
         analisis_dicei.obtener_el_total_distribuido_por_Vacuna_a_cada_institucion(
-            movimientos=fecha_entrega_2023_dicei
+            movimientos=fecha_entrega_2024_dicei
         )
     )
 
