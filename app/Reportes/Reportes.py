@@ -5,6 +5,7 @@ from app.smis.LogicaAnalisisDeDistribucion import (
     proceso_filtrar_origen_paicatamarca_a_instituciones_dicei,
 )
 import csv
+from typing import List
 
 from app.Configuraciones import (
     creditos,
@@ -177,3 +178,12 @@ def generarCuartoReporte(
             for vacuna, cantidad in depto_dist["Vacunas"].items():
                 # print(vacuna, cantidad)
                 reporte.writerow([depto_dist["Institución destino"], vacuna, cantidad])
+
+
+def generarQuintoReporte(lista_de_vacunas_completa, lista_de_vacunas_catamarca):
+    analisis = AP.AnalisisAplicaciones(
+        lista_de_vacunas_completa, lista_de_vacunas_catamarca
+    )
+    padron_completo, padron_catamarca = analisis.filtrar_segunda_dosis()
+
+    refuerzos = analisis.filtrar_refuerzos(poblacion="completa")
