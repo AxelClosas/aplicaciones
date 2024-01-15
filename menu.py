@@ -25,5 +25,7 @@ def menu():
         -> Dosis aplicadas a la población de Catamarca (Provincia de domicilio = Catamarca)
 
     4. Cuarto reporte - Cantidad de dosis distribuidas por vacuna a cada Institución - DiCEI
+
+    5. Quinto reporte - Reporte de Ultimas Aplicaciones y Pendientes
     """
     return menu
