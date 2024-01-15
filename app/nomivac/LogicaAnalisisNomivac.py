@@ -1,6 +1,5 @@
 import app.nomivac.Aplicaciones as APL
 import app.nomivac.ProcesarDatosDeCatamarca as PDC
-
 from app.Configuraciones import nombre_carpeta_csv_nomivac, nombre_archivo_base_completa
 import app.FuncionesLogicaCSV as PL
 import os
