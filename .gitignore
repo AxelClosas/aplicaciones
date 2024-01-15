@@ -1,6 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,macos,python,images
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,macos,python,images
-
+segunda.txt
 CSV_NOMIVAC/*.csv
 CSV_SMIS/*.csv
 Resultados/
