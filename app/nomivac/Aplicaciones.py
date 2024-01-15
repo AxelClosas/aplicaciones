@@ -49,6 +49,11 @@ class Aplicaciones:
 
     # Se define la función transformar_datos que moldeará los datos que se requieran
     def transformar_datos(self) -> list:
+        def reemplazar_edad(item) -> dict:
+            edad = int(item["EDAD_APLICACION"].replace("AÑOS", ""))
+            item["EDAD_APLICACION"] = edad
+            return item
+
         def cambiar_nombre(item) -> dict:
             cambiar_nombre = {
                 "Astrazeneca": "AstraZeneca ChAdOx1 S recombinante",
@@ -74,6 +79,7 @@ class Aplicaciones:
                 "ID": int(item["ID_CMDB_PERSONA"]),
                 "NRO_DOC": item["NRO_DOC"],
                 "FECHA_NACIMIENTO": item["FECHA_NACIMIENTO"],
+                "EDAD_APLICACION": str(item["EDAD_APLICACION"]),
                 # Datos de domicilio
                 "ID_PROVINCIA_DOMICILIO": item["ID_PROVINCIA_DOMICILIO"],
                 "PROVINCIA_DOMICILIO": item["PROVINCIA_DOMICILIO"],
@@ -106,6 +112,7 @@ class Aplicaciones:
         for vacuna in data:
             lista_de_vacunas.extend(list(map(obtener, vacuna)))
         lista_de_vacunas = list(map(cambiar_nombre, lista_de_vacunas))
+        lista_de_vacunas = list(map(reemplazar_edad, lista_de_vacunas))
 
         return lista_de_vacunas
 
