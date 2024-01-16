@@ -2,10 +2,7 @@ from datetime import datetime, date
 
 
 class Filtro:
-    def __init__(self, aplicaciones):
-        self.aplicaciones = aplicaciones
-
-    def filtrar_primera_dosis(self):
+    def filtrar_primera_dosis(aplicaciones):
         """Devuelve una lista de las primeras dosis.
 
         Returns:
@@ -17,11 +14,11 @@ class Filtro:
             if "1ra" in item["NOMBRE_DOSIS"]:
                 return item
 
-        filtro.extend(list(filter(filtrar_nombre_dosis, self.aplicaciones)))
+        filtro.extend(list(filter(filtrar_nombre_dosis, aplicaciones)))
 
         return filtro
 
-    def filtrar_segunda_dosis(self):
+    def filtrar_segunda_dosis(aplicaciones):
         """Devuelve una lista de las segundas dosis.
 
         Returns:
@@ -33,11 +30,11 @@ class Filtro:
             if "2da" in item["NOMBRE_DOSIS"]:
                 return item
 
-        filtro.extend(list(filter(filtrar_nombre_dosis, self.aplicaciones)))
+        filtro.extend(list(filter(filtrar_nombre_dosis, aplicaciones)))
 
         return filtro
 
-    def filtrar_dosis_adicional(self):
+    def filtrar_dosis_adicional(aplicaciones):
         """Devuelve una lista de las dosis adicionales.
 
         Returns:
@@ -49,11 +46,11 @@ class Filtro:
             if "Adicional" in item["NOMBRE_DOSIS"]:
                 return item
 
-        filtro.extend(list(filter(filtrar_nombre_dosis, self.aplicaciones)))
+        filtro.extend(list(filter(filtrar_nombre_dosis, aplicaciones)))
 
         return filtro
 
-    def filtrar_dosis_unica(self):
+    def filtrar_dosis_unica(aplicaciones):
         """Devuelve una lista de las dosis unicas.
 
         Returns:
@@ -65,11 +62,11 @@ class Filtro:
             if "Unica" in item["NOMBRE_DOSIS"]:
                 return item
 
-        filtro.extend(list(filter(filtrar_nombre_dosis, self.aplicaciones)))
+        filtro.extend(list(filter(filtrar_nombre_dosis, aplicaciones)))
 
         return filtro
 
-    def filtrar_refuerzos(self):
+    def filtrar_refuerzos(aplicaciones):
         """Devuelve una lista de las dosis de refuerzo.
 
         Returns:
@@ -81,11 +78,13 @@ class Filtro:
             if "Refuerzo" in item["NOMBRE_DOSIS"]:
                 return item
 
-        filtro.extend(list(filter(filtrar_nombre_dosis, self.aplicaciones)))
+        filtro.extend(list(filter(filtrar_nombre_dosis, aplicaciones)))
 
         return filtro
 
-    def filtrar_por_fecha_de_aplicacion(self, fecha_minima: str, fecha_maxima: str):
+    def filtrar_por_fecha_de_aplicacion(
+        aplicaciones, fecha_minima: str, fecha_maxima: str
+    ):
         formato = "%d/%m/%Y"
         fecha_minima = datetime.strptime(fecha_minima, formato)
         fecha_maxima = datetime.strptime(fecha_maxima, formato)
@@ -98,4 +97,4 @@ class Filtro:
             ):
                 return item
 
-        return list(filter(filtrar_fecha, self.aplicaciones))
+        return list(filter(filtrar_fecha, aplicaciones))
