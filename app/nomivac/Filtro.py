@@ -2,11 +2,14 @@ from datetime import datetime, date
 
 
 class Filtro:
-    def filtrar_primera_dosis(aplicaciones):
-        """Devuelve una lista de las primeras dosis.
+    def filtrar_primera_dosis(self, aplicaciones):
+        """Devuelve una lista de aplicaciones
+
+        Args:
+            aplicaciones (List[dict]): Lista de aplicaciones
 
         Returns:
-            Retorna una lista de diccionarios
+            Lista filtrada: Lista de aplicaciones filtrada
         """
         filtro = []
 
@@ -18,11 +21,14 @@ class Filtro:
 
         return filtro
 
-    def filtrar_segunda_dosis(aplicaciones):
-        """Devuelve una lista de las segundas dosis.
+    def filtrar_segunda_dosis(self, aplicaciones):
+        """Devuelve una lista de aplicaciones
+
+        Args:
+            aplicaciones (List[dict]): Lista de aplicaciones
 
         Returns:
-            Retorna una lista de diccionarios
+            Lista filtrada: Lista de aplicaciones filtrada
         """
         filtro = []
 
@@ -34,11 +40,14 @@ class Filtro:
 
         return filtro
 
-    def filtrar_dosis_adicional(aplicaciones):
-        """Devuelve una lista de las dosis adicionales.
+    def filtrar_dosis_adicional(self, aplicaciones):
+        """Devuelve una lista de aplicaciones
+
+        Args:
+            aplicaciones (List[dict]): Lista de aplicaciones
 
         Returns:
-            Retorna una lista de diccionarios
+            Lista filtrada: Lista de aplicaciones filtrada
         """
         filtro = []
 
@@ -50,11 +59,14 @@ class Filtro:
 
         return filtro
 
-    def filtrar_dosis_unica(aplicaciones):
-        """Devuelve una lista de las dosis unicas.
+    def filtrar_dosis_unica(self, aplicaciones):
+        """Devuelve una lista de aplicaciones
+
+        Args:
+            aplicaciones (List[dict]): Lista de aplicaciones
 
         Returns:
-            Retorna una lista de diccionarios
+            Lista filtrada: Lista de aplicaciones filtrada
         """
         filtro = []
 
@@ -66,11 +78,14 @@ class Filtro:
 
         return filtro
 
-    def filtrar_refuerzos(aplicaciones):
-        """Devuelve una lista de las dosis de refuerzo.
+    def filtrar_refuerzos(self, aplicaciones):
+        """Devuelve una lista de aplicaciones
+
+        Args:
+            aplicaciones (List[dict]): Lista de aplicaciones
 
         Returns:
-            Retorna una lista de diccionarios
+            Lista filtrada: Lista de aplicaciones filtrada
         """
         filtro = []
 
@@ -82,19 +97,29 @@ class Filtro:
 
         return filtro
 
-    def filtrar_por_fecha_de_aplicacion(
-        aplicaciones, fecha_minima: str, fecha_maxima: str
-    ):
+    def filtrar_por_fecha_de_aplicacion(self, aplicaciones, fecha_minima: str):
+        """Devuelve una lista de aplicaciones
+
+        Args:
+            aplicaciones (List[dict]): Lista de aplicaciones
+            fecha_minima (str): Fecha minima
+            fecha_maxima (str): Fecha maxima
+
+
+        Returns:
+            Lista filtrada: Lista de aplicaciones filtrada
+        """
         formato = "%d/%m/%Y"
+        fecha_hoy = date.today().strftime(formato)
+
         fecha_minima = datetime.strptime(fecha_minima, formato)
-        fecha_maxima = datetime.strptime(fecha_maxima, formato)
+        fecha_maxima = datetime.strptime(fecha_hoy, formato)
 
-        def filtrar_fecha(item, fecha_minima, fecha_maxima) -> dict:
-            if (
-                fecha_minima
+        return list(
+            filter(
+                lambda item: fecha_minima
                 <= datetime.strptime(item["FECHA_APLICACION"], formato)
-                <= fecha_maxima
-            ):
-                return item
-
-        return list(filter(filtrar_fecha, aplicaciones))
+                <= fecha_maxima,
+                aplicaciones,
+            )
+        )
