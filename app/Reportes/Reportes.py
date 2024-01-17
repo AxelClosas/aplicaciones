@@ -5,12 +5,18 @@ from app.smis.LogicaAnalisisDeDistribucion import (
     proceso_filtrar_origen_paicatamarca_a_instituciones_dicei,
 )
 import csv
-from typing import List
+from app.nomivac.Filtro import Filtro
+import app.FuncionesLogicaCSV as FL
 
 from app.Configuraciones import (
     creditos,
     nombre_carpeta_csv_smis,
     nombre_archivo_csv_smis,
+)
+
+from app.nomivac.Filtro import Filtro
+from app.nomivac.LogicaAnalisisNomivac import (
+    proceso_obtener_esquema_completo_y_refuerzos_ultimos_6_meses_por_departamento_y_rango_etario,
 )
 
 
@@ -88,12 +94,16 @@ def generarTercerReporte(
 ):
     Ap = AP.AnalisisAplicaciones(lista_completa, lista_catamarca)
     Ar = AR.AnalisisRefuerzo(lista_completa, lista_catamarca)
+    filtrar = Filtro()
+    lista_completa_primera = filtrar.filtrar_primera_dosis(lista_completa)
+    lista_completa_segunda = filtrar.filtrar_segunda_dosis(lista_completa)
+    lista_completa_unica = filtrar.filtrar_dosis_unica(lista_completa)
+    lista_completa_adicional = filtrar.filtrar_dosis_adicional(lista_completa)
 
-    # Esquemas completos
-    lista_completa_primera, lista_catamarca_primera = Ap.filtrar_primera_dosis()
-    lista_completa_segunda, lista_catamarca_segunda = Ap.filtrar_segunda_dosis()
-    lista_completa_unica, lista_catamarca_unica = Ap.filtrar_dosis_unica()
-    lista_completa_adicional, lista_catamarca_adicional = Ap.filtrar_dosis_adicional()
+    lista_catamarca_primera = filtrar.filtrar_primera_dosis(lista_catamarca)
+    lista_catamarca_segunda = filtrar.filtrar_segunda_dosis(lista_catamarca)
+    lista_catamarca_unica = filtrar.filtrar_dosis_unica(lista_catamarca)
+    lista_catamarca_adicional = filtrar.filtrar_dosis_adicional(lista_catamarca)
 
     # Refuerzos
 
@@ -180,10 +190,80 @@ def generarCuartoReporte(
                 reporte.writerow([depto_dist["Institución destino"], vacuna, cantidad])
 
 
-def generarQuintoReporte(lista_de_vacunas_completa, lista_de_vacunas_catamarca):
-    analisis = AP.AnalisisAplicaciones(
-        lista_de_vacunas_completa, lista_de_vacunas_catamarca
-    )
-    padron_completo, padron_catamarca = analisis.filtrar_segunda_dosis()
+def generarQuintoReporte(
+    lista_de_vacunas_completa,
+    carpeta_destino="Resultados",
+    nombre_archivo="Quinto_reporte.csv",
+):
+    with open(
+        f"{carpeta_destino}/{nombre_archivo}", "w", encoding="latin-1", newline=""
+    ) as csvfile:
+        estructura = proceso_obtener_esquema_completo_y_refuerzos_ultimos_6_meses_por_departamento_y_rango_etario(
+            lista_de_vacunas_completa
+        )
 
-    refuerzos = analisis.filtrar_refuerzos(poblacion="completa")
+        reporte = csv.writer(csvfile, delimiter=";")
+        reporte.writerow(
+            [
+                "",
+                "0 a 2",
+                "",
+                "",
+                "3 a 11",
+                "",
+                "",
+                "12 a 17",
+                "",
+                "",
+                "18 a 49",
+                "",
+                "",
+                "50 y más",
+            ]
+        )
+        reporte.writerow(
+            [
+                "Departamento",
+                "Esquema completo",
+                "Refuerzos ultimos 6 meses",
+                "Pendientes",
+                "Esquema completo",
+                "Refuerzos ultimos 6 meses",
+                "Pendientes",
+                "Esquema completo",
+                "Refuerzos ultimos 6 meses",
+                "Pendientes",
+                "Esquema completo",
+                "Refuerzos ultimos 6 meses",
+                "Pendientes",
+                "Esquema completo",
+                "Refuerzos ultimos 6 meses",
+                "Pendientes",
+            ]
+        )
+        for item in estructura:
+            reporte.writerow(
+                [
+                    item["DEPTO_ESTABLECIMIENTO"],
+                    # 0 a 2
+                    item["ESQUEMA_COMPLETO"]["RANGO_ETARIO_0_A_2"],
+                    item["REFUERZOS_ULTIMOS_6_MESES"]["RANGO_ETARIO_0_A_2"],
+                    item["PENDIENTES"]["RANGO_ETARIO_0_A_2"],
+                    # 3 a 11
+                    item["ESQUEMA_COMPLETO"]["RANGO_ETARIO_3_A_11"],
+                    item["REFUERZOS_ULTIMOS_6_MESES"]["RANGO_ETARIO_3_A_11"],
+                    item["PENDIENTES"]["RANGO_ETARIO_3_A_11"],
+                    # 12 a 17
+                    item["ESQUEMA_COMPLETO"]["RANGO_ETARIO_12_A_17"],
+                    item["REFUERZOS_ULTIMOS_6_MESES"]["RANGO_ETARIO_12_A_17"],
+                    item["PENDIENTES"]["RANGO_ETARIO_12_A_17"],
+                    # 18 a 49
+                    item["ESQUEMA_COMPLETO"]["RANGO_ETARIO_18_A_49"],
+                    item["REFUERZOS_ULTIMOS_6_MESES"]["RANGO_ETARIO_18_A_49"],
+                    item["PENDIENTES"]["RANGO_ETARIO_18_A_49"],
+                    # 50 y más
+                    item["ESQUEMA_COMPLETO"]["RANGO_ETARIO_50_Y_MAS"],
+                    item["REFUERZOS_ULTIMOS_6_MESES"]["RANGO_ETARIO_50_Y_MAS"],
+                    item["PENDIENTES"]["RANGO_ETARIO_50_Y_MAS"],
+                ]
+            )
