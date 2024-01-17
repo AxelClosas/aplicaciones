@@ -61,9 +61,7 @@ def run():
             # En caso de ingresar una opción no valida, se imprimé el mensaje y se corta la ejecución del Script
             case 5:
                 print("Generando reporte...\n")
-                Reportes.generarQuintoReporte(
-                    lista_de_vacunas_completa, lista_de_vacunas_catamarca
-                )
+                Reportes.generarQuintoReporte(lista_de_vacunas_completa)
             case _:
                 print(
                     "Ups... El número que ingresaste no se encuentra en el menú. Por favor, elije otro."
