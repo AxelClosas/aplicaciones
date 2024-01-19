@@ -56,14 +56,14 @@ class Distribucion:
         campos_importantes = list(map(campos_relevantes, data))
 
         # Luego transformamos la fecha de entrega
-        resultado_transformacion_fecha_entrega = list(
-            map(transformar_fecha_entrega, campos_importantes)
-        )
+        # resultado_transformacion_fecha_entrega = list(
+        #     map(transformar_fecha_entrega, campos_importantes)
+        # )
 
         movimientos_segun_programa = list(
             filter(
                 lambda item: item["Programa sanitario"] == programa,
-                resultado_transformacion_fecha_entrega,
+                campos_importantes,
             )
         )
 

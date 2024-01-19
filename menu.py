@@ -27,5 +27,7 @@ def menu():
     4. Cuarto reporte - Cantidad de dosis distribuidas por vacuna a cada Institución - DiCEI
 
     5. Quinto reporte - Reporte de Ultimas Aplicaciones y Pendientes
+
+    6. Sexto reporte - Descartes de Vacunas según Programa Sanitario (COVID o DiCEI)
     """
     return menu
