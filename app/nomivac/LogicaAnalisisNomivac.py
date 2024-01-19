@@ -67,7 +67,7 @@ def proceso_obtener_esquema_completo_y_refuerzos_ultimos_6_meses_por_departament
         {
             ID_DEPTO_ESTABLECIMIENTO: 35,
             DEPTO_ESTABLECIMIENTO: Valle Viejo,
-            # Los siguientes datos se obtienen desde el padrón de 2das dosis.
+            Los siguientes datos se obtienen desde el padrón de 2das dosis.
             ESQUEMA_COMPLETO: {
                 RANGO_ETARIO_0_A_2: 100,
                 RANGO_ETARIO_3_A_11: 100,
@@ -75,7 +75,7 @@ def proceso_obtener_esquema_completo_y_refuerzos_ultimos_6_meses_por_departament
                 RANGO_ETARIO_18_A_49: 100,
                 RANGO_ETARIO_50_Y_MAS: 100,
             },
-            # Los siguientes datos se obtienen desde el padrón de Refuerzos.
+            Los siguientes datos se obtienen desde el padrón de Refuerzos.
             REFUERZOS_ULTIMOS_6_MESES: {
                 RANGO_ETARIO_0_A_2: 100,
                 RANGO_ETARIO_3_A_11: 100,
@@ -89,9 +89,10 @@ def proceso_obtener_esquema_completo_y_refuerzos_ultimos_6_meses_por_departament
     filtrar = Filtro()
     padron = filtrar.filtrar_segunda_dosis(lista_de_vacunas_completa)
     refuerzos = filtrar.filtrar_refuerzos(lista_de_vacunas_completa)
-    fecha = input("Ingresa la fecha limite de 6 meses: ")
+    fecha_minima = str(input("Ingresa la fecha minima: "))
+    fecha_maxima = str(input("Ingresa la fecha maxima: "))
     refuerzos_ultimos_6_meses = filtrar.filtrar_por_fecha_de_aplicacion(
-        refuerzos, fecha
+        refuerzos, fecha_minima, fecha_maxima
     )
 
     id_departamentos = FL.obtener_id_departamentos_desde_archivo()
