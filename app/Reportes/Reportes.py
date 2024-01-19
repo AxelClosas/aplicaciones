@@ -1,22 +1,31 @@
+# CSV
+import csv
+import app.FuncionesLogicaCSV as FL
+
+# NOMIVAC
 import app.nomivac.AnalisisAplicaciones as AP
 import app.nomivac.AnalisisRefuerzo as AR
+from app.nomivac.Filtro import Filtro
+from app.nomivac.Filtro import Filtro
+from app.nomivac.LogicaAnalisisNomivac import (
+    proceso_obtener_esquema_completo_y_refuerzos_ultimos_6_meses_por_departamento_y_rango_etario,
+)
+
+# SMIS
 from app.smis.LogicaAnalisisDeDistribucion import (
     proceso_filtrar_origen_paicatamarca_a_instituciones_covid,
     proceso_filtrar_origen_paicatamarca_a_instituciones_dicei,
 )
-import csv
-from app.nomivac.Filtro import Filtro
-import app.FuncionesLogicaCSV as FL
+from app.smis.Distribucion import Distribucion
+from app.smis.Filtro import Filtro
+from app.smis.Dicei import Dicei
+from app.smis.Covid import Covid
+
 
 from app.Configuraciones import (
     creditos,
     nombre_carpeta_csv_smis,
     nombre_archivo_csv_smis,
-)
-
-from app.nomivac.Filtro import Filtro
-from app.nomivac.LogicaAnalisisNomivac import (
-    proceso_obtener_esquema_completo_y_refuerzos_ultimos_6_meses_por_departamento_y_rango_etario,
 )
 
 
@@ -267,3 +276,37 @@ def generarQuintoReporte(
                     item["PENDIENTES"]["RANGO_ETARIO_50_Y_MAS"],
                 ]
             )
+
+
+def generarSextoReporte(programa_sanitario: str, fecha_minima: str, fecha_maxima: str):
+    filtro = Filtro()
+    match programa_sanitario:
+        case "DiCEI":
+            distribucion = Distribucion(
+                nombre_carpeta_csv_smis, nombre_archivo_csv_smis
+            )
+            movimientos_dicei = distribucion.retornar_movimientos_de_programa_sanitario(
+                programa_sanitario
+            )
+            dicei = Dicei(movimientos_dicei)
+            mov_internos = dicei.retornar_movimientos_internos()
+
+            resumen = filtro.filtrar_por_rango_de_fechas(
+                mov_internos, fecha_minima, fecha_maxima
+            )
+            print(resumen)
+
+        case "COVID":
+            distribucion = Distribucion(
+                nombre_carpeta_csv_smis, nombre_archivo_csv_smis
+            )
+            movimientos_covid = distribucion.retornar_movimientos_de_programa_sanitario(
+                programa_sanitario
+            )
+            covid = Covid(movimientos_covid)
+            mov_internos = covid.retornar_movimientos_internos()
+
+            resumen = filtro.filtrar_por_rango_de_fechas(
+                mov_internos, fecha_minima, fecha_maxima
+            )
+            print(resumen)
