@@ -97,7 +97,9 @@ class Filtro:
 
         return filtro
 
-    def filtrar_por_fecha_de_aplicacion(self, aplicaciones, fecha_minima: str):
+    def filtrar_por_fecha_de_aplicacion(
+        self, aplicaciones, fecha_minima: str, fecha_maxima: str
+    ):
         """Devuelve una lista de aplicaciones
 
         Args:
@@ -113,7 +115,7 @@ class Filtro:
         fecha_hoy = date.today().strftime(formato)
 
         fecha_minima = datetime.strptime(fecha_minima, formato)
-        fecha_maxima = datetime.strptime(fecha_hoy, formato)
+        fecha_maxima = datetime.strptime(fecha_maxima, formato)
 
         return list(
             filter(
