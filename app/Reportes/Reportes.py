@@ -5,8 +5,7 @@ import app.FuncionesLogicaCSV as FL
 # NOMIVAC
 import app.nomivac.AnalisisAplicaciones as AP
 import app.nomivac.AnalisisRefuerzo as AR
-from app.nomivac.Filtro import Filtro
-from app.nomivac.Filtro import Filtro
+from app.nomivac.Filtro import Filtro as FiltroNOMIVAC
 from app.nomivac.LogicaAnalisisNomivac import (
     proceso_obtener_esquema_completo_y_refuerzos_ultimos_6_meses_por_departamento_y_rango_etario,
 )
@@ -17,7 +16,7 @@ from app.smis.LogicaAnalisisDeDistribucion import (
     proceso_filtrar_origen_paicatamarca_a_instituciones_dicei,
 )
 from app.smis.Distribucion import Distribucion
-from app.smis.Filtro import Filtro
+from app.smis.Filtro import Filtro as FiltroSMIS
 from app.smis.Dicei import Dicei
 from app.smis.Covid import Covid
 
@@ -103,7 +102,7 @@ def generarTercerReporte(
 ):
     Ap = AP.AnalisisAplicaciones(lista_completa, lista_catamarca)
     Ar = AR.AnalisisRefuerzo(lista_completa, lista_catamarca)
-    filtrar = Filtro()
+    filtrar = FiltroNOMIVAC()
     lista_completa_primera = filtrar.filtrar_primera_dosis(lista_completa)
     lista_completa_segunda = filtrar.filtrar_segunda_dosis(lista_completa)
     lista_completa_unica = filtrar.filtrar_dosis_unica(lista_completa)
@@ -279,7 +278,7 @@ def generarQuintoReporte(
 
 
 def generarSextoReporte(programa_sanitario: str, fecha_minima: str, fecha_maxima: str):
-    filtro = Filtro()
+    filtro = FiltroSMIS()
     match programa_sanitario:
         case "DiCEI":
             distribucion = Distribucion(
@@ -309,4 +308,5 @@ def generarSextoReporte(programa_sanitario: str, fecha_minima: str, fecha_maxima
             resumen = filtro.filtrar_por_rango_de_fechas(
                 mov_internos, fecha_minima, fecha_maxima
             )
-            print(resumen)
+
+            print(len(resumen))
